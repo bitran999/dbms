@@ -27,7 +27,7 @@ create proc Add_HoaDon
 	@MaKH nchar(10),
 	@MaNV nchar(10)
 as
-	insert into HOADON values(@MaHD,@NgayLHD,@MaKH,@MaNV)
+	insert into HOADON(MaHD,NgayLHD,MaKH,MaNV) values(@MaHD,@NgayLHD,@MaKH,@MaNV)
 
 go
 --Thêm chi tiết hóa đơn--
@@ -99,15 +99,6 @@ as
 	Insert into NHANVIEN
 	values(@MaNV,@TenNV,@GioiTinh,@NgaySinh,@DiaChi,@Users,@Pass,@SDT,@MaChucVu)
 go
---Thêm phân loại mặt hàng.--
-create proc Add_PhanLoaiMatHang
-	@MaLoaiMH nchar(10),
-	@TenLoaiMH nvarchar(50)
-as
-	insert into PHANLOAIMATHANG 
-	values(@MaLoaiMH,@TenLoaiMH)
-go
-
 
 --Các hàm sửa trong database--
 --Cập nhật chi tiết hóa đơn--
@@ -207,16 +198,6 @@ as
 	where MaNV=@MaNV
 go
 
---Cập nhật phân loại mặt hàng--
-
-create proc Update_PhanLoaiMatHang
-	@MaLoaiMH nchar(10),
-	@TenLoaiMH nvarchar(50)
-as
-	update PHANLOAIMATHANG 
-	set TenLoaiMH=@TenLoaiMH
-	where MaLoaiMH=@MaLoaiMH
-go
 --Cập nhật số lượng trong bảng kho hàng--
 create proc Update_SoLuongMH
 	@MaMH nchar(10),
@@ -298,12 +279,6 @@ create proc Delete_NhanVien
 as
 	delete from NHANVIEN where MaNV=@MaNV
 go
---Xóa phân loại mặt hàng.--
-create proc Delete_PhanLoaiMatHang
-	@MaLoaiMH nchar(10)
-as
-	delete PHANLOAIMATHANG where MaLoaiMH=@MaLoaiMH
-go
 
 
 --Load dữ liệu từ các bảng--
@@ -362,12 +337,6 @@ as
 select * from NHANVIEN
 go
 
---Load dữ liệu phân loại mặt hàng.--
-create proc Load_PhanLoaiMatHang
-as
-select * from PHANLOAIMATHANG
-go
-
 --Load MaMH trong HangNhaCungCap--
 create proc LoadMaMH_HNCC
 as
@@ -398,6 +367,68 @@ begin
 end
 go
 
+--Thông tin hóa đơn và khách hàng ứng với mã hóa đơn--
+create proc info_HoaDon_KhachHang
+	@MaHD nchar(10)
+as
+begin
+	select
+	MaHD,NgayLHD,HOADON.MaKH,MaNV,TenKH,GioiTinh,NgaySinh,DiaChi,SDT,Email 
+	from HOADON,KHACHHANG
+	where HOADON.MaKH=KHACHHANG.MaKH and HOADON.MaHD=@MaHD
+end
+go
+--Thông tin về giá cả số lượng ứng với từng loại mặt hàng--
+create proc info_HoaDon_MatHang
+	@MaHD nchar(10),
+	@TenMH nvarchar(50)
+as
+begin
+	select *
+	from CHITIETHOADON,MATHANG
+	where CHITIETHOADON.MaMH=MATHANG.MaMH and TenMH=@TenMH and CHITIETHOADON.MaHD=@MaHD
+end
+go
+--Thông tin về tất cả các tên mặt hàng ứng với MaHD được nhận--
+create proc info_AllTenMH
+	@MaHD nchar(10)
+as
+begin
+	select *
+	from CHITIETHOADON, MATHANG
+	where CHITIETHOADON.MaMH=MATHANG.MaMH and CHITIETHOADON.MaHD=@MaHD
+end
+go
+--Thông tin về tên sản phẩm và giá tương ứng với MaMH.--
+create proc info_MaMH_TenMH_Gia
+	@MaMH nchar(10)
+as
+begin
+	select *
+	from MATHANG
+	where MaMH=@MaMH
+end
+go
+--Thông tin bảng hóa đơn--
+create proc info_HoaDon
+	@MaHD nchar(10)
+as
+begin
+	select *
+	from HOADON
+	where MaHD=@MaHD
+end
+go
+--Liệt kê các mã mặt hàng--
+--Xem kho hàng--
+create proc XemKhoHang
+as
+begin
+	select KHOHANG.MaMH,TenMH,Gia, TrangThai,SoLuong
+	from KHOHANG,MATHANG 
+	where KHOHANG.MaMH=MATHANG.MaMH 
+end
+go
 --Trigger--
 -- Cập nhật kho hàng khi có đơn hàng mới hoặc cập nhật --
 create  trigger Update_HangTrongKho_Them_Don
@@ -475,3 +506,104 @@ begin
 	update KHOHANG set  TrangThai=N'Hết' where SoLuong=0
 end
 go
+
+
+---Kiểm tra--
+--Kiểm tra khi thay đổi Username--
+create function Check_UserName(@User nvarchar(10))
+returns int
+as
+begin 
+	if (@User=(select Users from NHANVIEN where Users=@User))
+	begin
+		return 1;
+	end
+	return 0;
+end
+go
+--Kiểm tra xem mật khẩu mới có khác mật khẩu cũ--
+create function Check_PassWord(@MaNV nchar(10),@Pass nvarchar(10))
+returns int
+as
+begin 
+	if (@Pass=(select Pass from NHANVIEN where MaNV=@MaNV))
+	begin
+		return 1;
+	end
+	return 0;
+end
+go
+---Tìm kiếm--
+--Tìm khách hàng--
+create proc Search_KhachHang
+@Tim nvarchar(50)
+as
+	select * from KHACHHANG
+	where MaKH like N'%'+@Tim +'%'
+	or TenKH like N'%'+@Tim +'%'
+	or GioiTinh like N'%'+@Tim +'%'
+	or DiaChi like N'%'+@Tim +'%'
+	or SDT like N'%'+@Tim +'%'
+	or Email like N'%'+@Tim+'%'
+	or NgaySinh like N'%'+@Tim +'%'
+go
+--Tìm kiếm mặt hàng--
+create proc Search_MatHang
+	@Tim nvarchar(30)
+as
+select * from MATHANG
+	where MaMH like N'%'+@Tim +'%'
+	or TenMH like N'%'+@Tim +'%'
+	or Gia like N'%'+@Tim +'%'
+	or HanSD like N'%'+@Tim +'%'
+go
+--Tìm kiếm nhà cung cấp.--
+create proc Search_NhaCungCap
+	@Tim nvarchar(30)
+as
+	select * from NHACUNGCAP
+	where MaNCC like N'%'+@Tim +'%'
+	or TenNCC like N'%'+@Tim +'%'
+	or DiaChi like N'%'+@Tim+'%'
+	or SDT like N'%'+@Tim +'%'
+	or STK like N'%'+@Tim +'%'
+go
+--Tìm kiếm nhân viên.--
+create proc Search_NhanVien
+	@TimKiem nvarchar(30)
+as
+	select * from NHANVIEN
+	where MaNV like N'%'+@TimKiem +'%'
+	or TenNV like N'%'+@TimKiem +'%'
+	or GioiTinh like N'%'+@TimKiem +'%'
+	or DiaChi like N'%'+@TimKiem +'%'
+	or SDT like N'%'+@TimKiem +'%'
+	or MaChucVu like N'%'+@TimKiem +'%'
+go
+--Tìm MaNV khi đăng nhập users thành công và kiểm tra đăng nhập--
+create proc NhanVien_DangNhap
+	@Users nchar(10),
+	@Pass nchar(10)
+as
+begin
+	select MaNV
+	from NHANVIEN
+	where Users=@Users and Pass=@Pass;
+end
+go
+--Tìm kiếm trong kho hàng--
+create proc Search_KhoHang
+	@Tim nvarchar(30)
+as
+begin
+	select KHOHANG.MaMH,TenMH,Gia, TrangThai,SoLuong 
+	from KHOHANG, MATHANG
+	where KHOHANG.MaMH=MATHANG.MaMH and 
+	KHOHANG.MaMH like N'%'+@Tim +'%'
+	or TrangThai like N'%'+@Tim +'%'
+	or SoLuong like N'%'+@Tim +'%'
+	or TenMH like N'%'+@Tim +'%'
+	or Gia like N'%'+@Tim +'%'
+end
+go
+

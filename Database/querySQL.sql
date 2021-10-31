@@ -42,10 +42,6 @@ SDT nchar(10) UNIQUE,
 Email nchar(30) UNIQUE
 );
 
-create table PHANLOAIMATHANG
-(MaLoaiMH nchar(10) PRIMARY KEY not null,
-TenLoaiMH nvarchar(50)
-);
 
 create table KHOHANG
 (MaMH nchar(10) PRIMARY KEY not null,
@@ -77,8 +73,6 @@ MaLoaiMH nchar(10),
 CONSTRAINT CheckGia CHECK(Gia >0),
 CONSTRAINT fk_MatHang_Kho
 FOREIGN KEY(MaMH) REFERENCES KHOHANG(MaMH) ON DELETE CASCADE, 
-CONSTRAINT fk_MatHang_PhanLoaiMH FOREIGN KEY (MaLoaiMH)
-REFERENCES PHANLOAIMATHANG (MaLoaiMH) ON DELETE SET NULL ,
 CONSTRAINT CheckDate CHECK(NgaySX<HanSD ));
 
 create table HOADON
@@ -97,7 +91,7 @@ create table CHITIETHOADON
 (MaHD nchar(10),
 MaMH nchar(10),
 SoLuong int,
-GiaTriMH float default 0
+GiaTriMH float default 0,
 CONSTRAINT CheckSLMua CHECK(SoLuong>0),
 PRIMARY KEY(MaHD,MaMH),
 CONSTRAINT fk_CTHD_HoaDon
