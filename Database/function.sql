@@ -241,6 +241,162 @@ begin
 	where MaNV=@MaNV
 end
 go
+--Các hàm xóa--
+--Xóa chi tiết hóa đơn.--
+create proc Delete_ChiTietHoaDon
+	@MaHD nchar(10),
+	@MaMH nchar(10)
+as
+	delete from CHITIETHOADON where MaHD=@MaHD and MaMH=@MaMH;
+go
+--Xóa chức vụ.--
+create proc Delete_ChucVu
+	@MaChucVu nchar(10)
+as
+	delete from CHUCVU where MaChucVu=@MaChucVu
+go
+--Xóa hàng nhà cung cấp.--
+create proc Delete_HangNhaCungCap
+	@MaNCC nchar(10),
+	@MaMH nchar(10)
+as
+	delete from HANGNHACUNGCAP where MaNCC=@MaNCC and MaMH=@MaMH
+go
+--Xóa hóa đơn.--
+create proc Delete_HoaDon
+	@MaHD nchar(10)
+as
+	delete from HOADON where MaHD=@MaHD
+go
+--Xóa khách hàng.--
+create proc Delete_KhachHang
+	@MaKH nchar(10)
+as
+	delete from KHACHHANG where MaKH=@MaKH
+go
+--Xóa mặt hàng trong kho hàng.--
+create proc Delete_KhoHang
+	@MaMH nchar(10)
+as
+	delete from KHOHANG where MaMH=@MaMH
+go
+--Xóa mặt hàng.--
+create proc Delete_MatHang
+	@MaMH nchar(10)
+as
+	delete from MATHANG where MaMH=@MaMH
+go
+--Xóa nhà cung cấp.--
+create proc Delete_NhaCungCap
+	@MaNCC nchar(10)
+as
+	delete from NHACUNGCAP where MaNCC=@MaNCC
+go
+--Xóa nhân viên.--
+create proc Delete_NhanVien
+	@MaNV nchar(10)
+as
+	delete from NHANVIEN where MaNV=@MaNV
+go
+--Xóa phân loại mặt hàng.--
+create proc Delete_PhanLoaiMatHang
+	@MaLoaiMH nchar(10)
+as
+	delete PHANLOAIMATHANG where MaLoaiMH=@MaLoaiMH
+go
+
+
+--Load dữ liệu từ các bảng--
+--Load dữ liệu chi tiết hóa đơn.--
+create proc Load_ChiTietHoaDon
+as
+select * from CHITIETHOADON
+go
+
+--Load dữ liệu chức vụ.--
+create proc Load_ChucVu
+as
+select * from CHUCVU
+go
+
+--Load dữ liệu nhà cung cấp.--
+create proc Load_HangNhaCungCap
+as
+select * from HANGNHACUNGCAP
+go
+
+--Load dữ liệu hóa đơn.--
+
+create proc Load_HoaDon
+as
+select * from HOADON
+go
+
+--Load dữ liệu khách hàng.--
+create proc Load_KhachHang
+as
+select * from KHACHHANG
+go
+
+--Load dữ liệu kho hàng.--
+create proc Load_KhoHang
+as
+select * from KHOHANG
+go
+
+--Load dữ liệu mặt hàng.--
+create proc Load_MatHang
+as
+select * from MATHANG
+go
+
+--Load dữ liệu hàng nhà cung cấp.--
+create proc Load_NhaCungCap
+as
+	select * from NHACUNGCAP
+go
+
+--Load dữ liệu nhân viên.--
+create proc Load_NhanVien
+as
+select * from NHANVIEN
+go
+
+--Load dữ liệu phân loại mặt hàng.--
+create proc Load_PhanLoaiMatHang
+as
+select * from PHANLOAIMATHANG
+go
+
+--Load MaMH trong HangNhaCungCap--
+create proc LoadMaMH_HNCC
+as
+begin
+select	distinct HANGNHACUNGCAP.MaMH
+	from HANGNHACUNGCAP
+end
+go
+
+--Load MaMH trong cả HangNhaCungCap và ChiTietHoaDon--
+create proc LoadHangNCC_CTHD
+as
+begin
+	select distinct HANGNHACUNGCAP.MaMH
+	from HANGNHACUNGCAP, CHITIETHOADON
+	where HANGNHACUNGCAP.MaMH=CHITIETHOADON.MaMH
+end
+go
+
+--Load thông tin nhân viên--
+create proc Load_ThongTinNV
+@MaNV nchar(10)
+as
+begin
+	select TenNV,GioiTinh,NgaySinh,DiaChi,SDT,TenChucVu,Luong 
+	from NHANVIEN,CHUCVU
+	where NHANVIEN.MaChucVu=CHUCVU.MaChucVu and MaNV=@MaNV 
+end
+go
 
 --Trigger--
 -- Cập nhật kho hàng khi có đơn hàng mới hoặc cập nhật --

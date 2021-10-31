@@ -86,7 +86,7 @@ create table HOADON
 NgayLHD date,
 MaKH nchar(10),
 MaNV nchar(10),
-GiaTri float,
+GiaTri float default 0,
 CONSTRAINT fk_HoaDon_KhachHang
 FOREIGN KEY (MaKH)
 REFERENCES KHACHHANG (MaKH) ON DELETE SET NULL, 
@@ -97,6 +97,7 @@ create table CHITIETHOADON
 (MaHD nchar(10),
 MaMH nchar(10),
 SoLuong int,
+GiaTriMH float default 0
 CONSTRAINT CheckSLMua CHECK(SoLuong>0),
 PRIMARY KEY(MaHD,MaMH),
 CONSTRAINT fk_CTHD_HoaDon
