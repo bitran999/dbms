@@ -86,6 +86,7 @@ create table HOADON
 NgayLHD date,
 MaKH nchar(10),
 MaNV nchar(10),
+GiaTri float,
 CONSTRAINT fk_HoaDon_KhachHang
 FOREIGN KEY (MaKH)
 REFERENCES KHACHHANG (MaKH) ON DELETE SET NULL, 
