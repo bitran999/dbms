@@ -17,24 +17,18 @@ namespace QuanLySieuThiTienLoi
             InitializeComponent();
         }
 
-        private void appNameLable_Click(object sender, EventArgs e)
+        private void quảnLýToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FormManager f = new FormManager();
+            this.Hide();
+            f.ShowDialog();
+            this.Show();
         }
 
-        private void FormMain_Load(object sender, EventArgs e)
+        private void thôngTinCáNhânToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
+            FormInfoAccout f = new FormInfoAccout();
+            f.ShowDialog();
         }
     }
 }
