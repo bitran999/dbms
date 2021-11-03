@@ -35,7 +35,17 @@ namespace QuanLySieuThiTienLoi
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.dateTimePickerFront = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerBack = new System.Windows.Forms.DateTimePicker();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btnViewData = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -84,6 +94,8 @@ namespace QuanLySieuThiTienLoi
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.panel2);
+            this.tabPage4.Controls.Add(this.panel1);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -102,6 +114,56 @@ namespace QuanLySieuThiTienLoi
             this.tabPage5.Text = "Nhà Cung Cấp";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.dataGridView1);
+            this.panel1.Location = new System.Drawing.Point(0, 40);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(782, 358);
+            this.panel1.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.btnViewData);
+            this.panel2.Controls.Add(this.dateTimePickerBack);
+            this.panel2.Controls.Add(this.dateTimePickerFront);
+            this.panel2.Location = new System.Drawing.Point(0, 10);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(782, 27);
+            this.panel2.TabIndex = 1;
+            // 
+            // dateTimePickerFront
+            // 
+            this.dateTimePickerFront.Location = new System.Drawing.Point(36, 3);
+            this.dateTimePickerFront.Name = "dateTimePickerFront";
+            this.dateTimePickerFront.Size = new System.Drawing.Size(210, 20);
+            this.dateTimePickerFront.TabIndex = 0;
+            // 
+            // dateTimePickerBack
+            // 
+            this.dateTimePickerBack.Location = new System.Drawing.Point(534, 3);
+            this.dateTimePickerBack.Name = "dateTimePickerBack";
+            this.dateTimePickerBack.Size = new System.Drawing.Size(204, 20);
+            this.dateTimePickerBack.TabIndex = 1;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(14, 15);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(751, 330);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // btnViewData
+            // 
+            this.btnViewData.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnViewData.Location = new System.Drawing.Point(323, 0);
+            this.btnViewData.Name = "btnViewData";
+            this.btnViewData.Size = new System.Drawing.Size(118, 27);
+            this.btnViewData.TabIndex = 2;
+            this.btnViewData.Text = "Thống Kê";
+            this.btnViewData.UseVisualStyleBackColor = true;
+            // 
             // FormManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -112,6 +174,10 @@ namespace QuanLySieuThiTienLoi
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormManager";
             this.tabControl.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -124,5 +190,11 @@ namespace QuanLySieuThiTienLoi
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btnViewData;
+        private System.Windows.Forms.DateTimePicker dateTimePickerBack;
+        private System.Windows.Forms.DateTimePicker dateTimePickerFront;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
