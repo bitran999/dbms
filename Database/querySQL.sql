@@ -33,7 +33,7 @@ STK nchar(15)
 );
 
 create table KHACHHANG
-(MaKH nchar(10) PRIMARY KEY not null,
+(MaKH nchar(5) PRIMARY KEY CONSTRAINT IDKH DEFAULT DBO.AUTO_IDKH(),
 TenKH nvarchar(50),
 GioiTinh nchar(10),
 NgaySinh date,
@@ -69,16 +69,15 @@ TenMH nvarchar(50),
 Gia float,
 NgaySX date,
 HanSD nchar(10),
-MaLoaiMH nchar(10),
 CONSTRAINT CheckGia CHECK(Gia >0),
 CONSTRAINT fk_MatHang_Kho
 FOREIGN KEY(MaMH) REFERENCES KHOHANG(MaMH) ON DELETE CASCADE, 
 CONSTRAINT CheckDate CHECK(NgaySX<HanSD ));
 
 create table HOADON
-(MaHD nchar(10)	PRIMARY KEY not null,
+(MaHD nchar(5)PRIMARY KEY CONSTRAINT IDHD DEFAULT DBO.AUTO_IDHD(),
 NgayLHD date,
-MaKH nchar(10),
+MaKH nchar(5),
 MaNV nchar(10),
 GiaTri float default 0,
 CONSTRAINT fk_HoaDon_KhachHang
@@ -88,7 +87,7 @@ CONSTRAINT fk_HoaDon_NhanVien FOREIGN KEY (MaNV)
 REFERENCES NHANVIEN (MaNV) ON DELETE SET NULL, );
 
 create table CHITIETHOADON
-(MaHD nchar(10),
+(MaHD nchar(5),
 MaMH nchar(10),
 SoLuong int,
 GiaTriMH float default 0,

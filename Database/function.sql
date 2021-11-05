@@ -8,7 +8,6 @@ go
 
 --Thêm khách hàng--
 create proc Add_KhachHang
-	@MaKH nchar(10),
 	@TenKH nvarchar(50),
 	@GioiTinh nchar(10),
 	@NgaySinh date,
@@ -16,23 +15,22 @@ create proc Add_KhachHang
 	@SDT nchar(10),
 	@Email nchar(30)
 as
-	insert into KHACHHANG
-	values(@MaKH,@TenKH,@GioiTinh,@NgaySinh,@DiaChi,@SDT,@Email)
+	insert into KHACHHANG(TenKH,GioiTinh,NgaySinh,DiaChi,SDT,Email)
+	values(@TenKH,@GioiTinh,@NgaySinh,@DiaChi,@SDT,@Email)
 
 go
 --Thêm hóa đơn
 create proc Add_HoaDon
-	@MaHD nchar(10),
 	@NgayLHD date,
-	@MaKH nchar(10),
+	@MaKH nchar(5),
 	@MaNV nchar(10)
 as
-	insert into HOADON(MaHD,NgayLHD,MaKH,MaNV) values(@MaHD,@NgayLHD,@MaKH,@MaNV)
+	insert into HOADON(NgayLHD,MaKH,MaNV) values(@NgayLHD,@MaKH,@MaNV)
 
 go
 --Thêm chi tiết hóa đơn--
 create proc Add_ChiTietHoaDon
-	@MaHD nchar(10),
+	@MaHD nchar(5),
 	@MaMH nchar(10),
 	@SoLuong int
 as
@@ -67,11 +65,10 @@ create proc Add_MatHang
 	@TenMH nvarchar(50),
 	@Gia float,
 	@NgaySX date,
-	@HanSD nchar(10),
-	@MaLoaiMH nchar(10)
+	@HanSD nchar(10)
 as
 	insert into MATHANG 
-	values(@MaMH,@TenMH,@Gia,@NgaySX,@HanSD,@MaLoaiMH)
+	values(@MaMH,@TenMH,@Gia,@NgaySX,@HanSD)
 go
 --Thêm nhà cung cấp.--
 create proc Add_NhaCungCap
@@ -103,7 +100,7 @@ go
 --Các hàm sửa trong database--
 --Cập nhật chi tiết hóa đơn--
 create proc Update_ChiTietHoaDon
-	@MaHD nchar(10),
+	@MaHD nchar(5),
 	@MaMH nchar(10),
 	@SoLuong int
 as
@@ -133,9 +130,9 @@ as
 go
 --Cập nhật hóa đơn--
 create proc Update_HoaDon
-	@MaHD nchar(10),
+	@MaHD nchar(5),
 	@NgayLHD date,
-	@MaKH nchar(10),
+	@MaKH nchar(5),
 	@MaNV nchar(10)
 as
 	update HOADON 
@@ -143,7 +140,7 @@ as
 	where MaHD=@MaHD
 go
 create proc Update_KhachHang
-	@MaKH nchar(10),
+	@MaKH nchar(5),
 	@TenKH nvarchar(50),
 	@GioiTinh nchar(10),
 	@NgaySinh date,
@@ -165,7 +162,7 @@ create proc Update_MatHang
 @MaLoaiMH nchar(10)
 as
 	update MATHANG 
-	set	TenMH=@TenMH,Gia=@Gia,NgaySX=@NgaySX,HanSD=@HanSD,MaLoaiMH=@MaLoaiMH 
+	set	TenMH=@TenMH,Gia=@Gia,NgaySX=@NgaySX,HanSD=@HanSD
 	where MaMH=@MaMH
 go
 --Cập nhật nhà cung cấp--
@@ -251,7 +248,7 @@ as
 go
 --Xóa khách hàng.--
 create proc Delete_KhachHang
-	@MaKH nchar(10)
+	@MaKH nchar(5)
 as
 	delete from KHACHHANG where MaKH=@MaKH
 go
@@ -369,7 +366,7 @@ go
 
 --Thông tin hóa đơn và khách hàng ứng với mã hóa đơn--
 create proc info_HoaDon_KhachHang
-	@MaHD nchar(10)
+	@MaHD nchar(5)
 as
 begin
 	select
@@ -378,9 +375,28 @@ begin
 	where HOADON.MaKH=KHACHHANG.MaKH and HOADON.MaHD=@MaHD
 end
 go
+--Load thông tin toàn bộ của nhân viên--
+create proc Load_Info_NhanVien
+as
+select distinct * from NHANVIEN,CHUCVU
+go
+--Load thông tin trả về kho hàng, chi tiết các loại mặt hàng
+create proc Load_Info_WareHouse
+as
+begin
+	select MATHANG.MaMH as [Mã Mặt Hàng],
+	TenMH as [Tên Mặt Hàng],
+	Gia as [Giá],
+	NgaySX as [Ngày Sản Xuất],
+	HanSD as[Hạn Sử Dụng],
+	TrangThai as[Trạng Thái],
+	SoLuong as[Số Lượng]
+	from MATHANG inner join KHOHANG on MATHANG.MaMH=KHOHANG.MaMH
+end
+go
 --Thông tin về giá cả số lượng ứng với từng loại mặt hàng--
 create proc info_HoaDon_MatHang
-	@MaHD nchar(10),
+	@MaHD nchar(5),
 	@TenMH nvarchar(50)
 as
 begin
@@ -391,7 +407,7 @@ end
 go
 --Thông tin về tất cả các tên mặt hàng ứng với MaHD được nhận--
 create proc info_AllTenMH
-	@MaHD nchar(10)
+	@MaHD nchar(5)
 as
 begin
 	select *
@@ -411,7 +427,7 @@ end
 go
 --Thông tin bảng hóa đơn--
 create proc info_HoaDon
-	@MaHD nchar(10)
+	@MaHD nchar(5)
 as
 begin
 	select *
@@ -533,6 +549,49 @@ begin
 	return 0;
 end
 go
+--Kiểm tra login--
+create proc Check_Login
+@UserName varchar(10),@PassWord varchar(10)
+as 
+begin
+	select * from NHANVIEN where Users=@UserName and Pass=@PassWord;
+end
+go
+
+--Hàm tạo mã khách hàng tự động----
+CREATE FUNCTION AUTO_IDKH()
+RETURNS VARCHAR(5)
+AS
+BEGIN
+	DECLARE @ID VARCHAR(5)
+	IF (SELECT COUNT(MaKH) FROM KHACHHANG) = 0
+		SET @ID = '0'
+	ELSE
+		SELECT @ID = MAX(RIGHT(MaKH, 3)) FROM KHACHHANG
+		SELECT @ID = CASE
+			WHEN @ID >= 0 and @ID < 9 THEN 'KH0' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
+			WHEN @ID >= 9 THEN 'KH00' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
+		END
+	RETURN @ID
+END
+go
+--Hàm tạo mã hóa đơn tự động--
+CREATE FUNCTION AUTO_IDHD()
+RETURNS VARCHAR(5)
+AS
+BEGIN
+	DECLARE @ID VARCHAR(5)
+	IF (SELECT COUNT(MaHD) FROM HOADON) = 0
+		SET @ID = '0'
+	ELSE
+		SELECT @ID = MAX(RIGHT(MaHD, 3)) FROM HOADON
+		SELECT @ID = CASE
+			WHEN @ID >= 0 and @ID < 9 THEN 'HD0' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
+			WHEN @ID >= 9 THEN 'HD00' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
+		END
+	RETURN @ID
+END
+go
 ---Tìm kiếm--
 --Tìm khách hàng--
 create proc Search_KhachHang
@@ -606,4 +665,3 @@ begin
 	or Gia like N'%'+@Tim +'%'
 end
 go
-
