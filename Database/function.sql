@@ -47,12 +47,13 @@ as
 	insert into CHUCVU values(@MaChucVu,@TenChucVu,@Luong)
 go
 --Thêm hàng nhà cung cấp.--
-create proc Add_HangNhaCungCap
+create  proc Add_HoaDonNhanHang
 	@MaNCC nchar(10),
 	@MaMH nchar(10),
+	@NgayGiao date,
 	@SoLuong int
 as
-	insert into HANGNHACUNGCAP values(@MaNCC,@MaMH,@SoLuong)
+	insert into HOADONNHANHANG(MaNCC,MaMH,NgayGiao,SoLuong) values(@MaNCC,@MaMH,@NgayGiao,@SoLuong)
 go
 --Thêm mã mặt hàng vào kho hàng.--
 create proc Add_KhoHang
@@ -65,11 +66,12 @@ create proc Add_MatHang
 	@MaMH nchar(10),
 	@TenMH nvarchar(50),
 	@Gia float,
+	@GiaGoc float,
 	@NgaySX date,
 	@HanSD nchar(10)
 as
 	insert into MATHANG 
-	values(@MaMH,@TenMH,@Gia,@NgaySX,@HanSD)
+	values(@MaMH,@TenMH,@Gia,@GiaGoc,@NgaySX,@HanSD)
 go
 --Thêm nhà cung cấp.--
 create proc Add_NhaCungCap
@@ -120,24 +122,24 @@ as
 	where MaChucVu=@MaChucVu
 go
 --Cập nhật hàng nhà cung cấp--
-create proc Update_HangNhaCungCap
-	@MaNCC nchar(10),
-	@MaMH nchar(10),
+create proc Update_HoaDonNhanHang
+	@MaHDN nchar(10),
 	@SoLuong int
 as
-	update HANGNHACUNGCAP
-	SET SoLuong=@SoLuong 
-	where MaNCC=@MaNCC and MaMH=@MaMH
+	update HOADONNHANHANG
+	SET SoLuong=@SoLuong
+	where MaHDN=@MaHDN
 go
 --Cập nhật hóa đơn--
-create proc Update_HoaDon
+create  proc Update_HoaDon
 	@MaHD nchar(5),
 	@NgayLHD date,
 	@MaKH nchar(5),
-	@MaNV nchar(10)
+	@MaNV nchar(10),
+	@GiaTri float
 as
 	update HOADON 
-	set NgayLHD=@NgayLHD,MaKH=@MaKH,MaNV=@MaNV 
+	set NgayLHD=@NgayLHD,MaKH=@MaKH,MaNV=@MaNV ,GiaTri=@GiaTri
 	where MaHD=@MaHD
 go
 create proc Update_KhachHang
@@ -235,17 +237,17 @@ as
 	delete from CHUCVU where MaChucVu=@MaChucVu
 go
 --Xóa hàng nhà cung cấp.--
-create proc Delete_HangNhaCungCap
-	@MaNCC nchar(10),
-	@MaMH nchar(10)
+create proc Delete_HoaDonNhan
+	@MaHDN nchar(10)
 as
-	delete from HANGNHACUNGCAP where MaNCC=@MaNCC and MaMH=@MaMH
+	delete from HOADONNHAN where MaHDN=@MaHDN
 go
 --Xóa hóa đơn.--
 create proc Delete_HoaDon
 	@MaHD nchar(10)
 as
 	delete from HOADON where MaHD=@MaHD
+	delete from CHITIETHOADON where MaHD=@MaHD
 go
 --Xóa khách hàng.--
 create proc Delete_KhachHang
@@ -293,9 +295,9 @@ select * from CHUCVU
 go
 
 --Load dữ liệu nhà cung cấp.--
-create proc Load_HangNhaCungCap
+create proc Load_HoaDonNhan
 as
-select * from HANGNHACUNGCAP
+select * from HOADONNHANHANG
 go
 
 --Load dữ liệu hóa đơn.--
@@ -449,7 +451,7 @@ begin
 end
 go
 ---Thông tin chi tiết hóa đơn theo mã hóa đơn và mã sản phẩm--
-create proc info_ChiTietHoaDon_FindOne
+create  proc info_ChiTietHoaDon_FindOne
 	@MaHD nchar(5),@MaMH nvarchar(10)
 as
 begin
@@ -472,8 +474,8 @@ go
 
 --Trigger--
 -- Cập nhật kho hàng khi có đơn hàng mới hoặc cập nhật --
-create  trigger Update_HangTrongKho_Them_Don
-on CHITIETHOADON after insert 
+create   trigger Update_HangTrongKho_Insert_ChiTietHoaDon
+on CHITIETHOADON for insert 
 as 
 begin
 	update KHOHANG
@@ -487,7 +489,7 @@ begin
 end
 go
 -- Cập nhật kho hàng khi có đơn hàng bị hủy --
-create  trigger Update_HangTrongKho_Huy_Don
+create  trigger Update_HangTrongKho_Delete_ChiTietHoaDon
 on CHITIETHOADON for delete 
 as 
 begin
@@ -503,16 +505,15 @@ end
 
 go
 -- Cập nhật hàng trong kho sau khi cập nhật hóa đơn --
-create  trigger Update_HangTrongKho_Sua_Don
+create  trigger Update_HangTrongKho_Update_ChiTietHoaDon
 on CHITIETHOADON after update 
 as
 begin 
 	update KHOHANG
-	set SoLuong =KHOHANG.SoLuong - 
-	(select SoLuong	from inserted where inserted.MaMH=KHOHANG.MaMH)+
-	(select SoLuong	from deleted where deleted.MaMH=KHOHANG.MaMH)
+	set KHOHANG.SoLuong=KHOHANG.SoLuong- i.SoLuong+d.SoLuong
 	from KHOHANG
-	join deleted on KHOHANG.MaMH=deleted.MaMH
+	inner join inserted as i on KHOHANG.MaMH=i.MaMH
+	inner join deleted as d on i.MaMH=d.MaMH
 end
 go
 --Cập nhật giá trị chi tiết hóa đơn --
@@ -524,6 +525,17 @@ begin
 	set GiaTriMH =CHITIETHOADON.SoLuong*
 	(select Gia from MATHANG where CHITIETHOADON.MaMH=MATHANG.MaMH)
 	from CHITIETHOADON
+end
+go
+--Cập nhật giá đơn nhận hàng --
+create trigger Update_HoaDonNhan
+on HOADONNHANHANG for insert,update,delete
+as
+begin 
+	update HOADONNHANHANG
+	set GiaTri =HOADONNHANHANG.SoLuong*
+	(select GiaTri from MATHANG where HOADONNHANHANG.MaMH=MATHANG.MaMH)
+	from HOADONNHANHANG
 end
 go
 --Cập nhật tổng giá trị  hóa đơn  --
@@ -547,7 +559,21 @@ begin
 	update KHOHANG set  TrangThai=N'Hết' where SoLuong=0
 end
 go
-
+-- Cập nhật kho hàng khi có hàng mới nhận --
+create  trigger Update_HangTrongKho_Insert_HoaDonNhan
+on HOADONNHANHANG for insert 
+as 
+begin
+	update KHOHANG
+	set SoLuong=KHOHANG.SoLuong+(
+		select SoLuong
+		from inserted
+		where inserted.MaMH=KHOHANG.MaMH
+	)
+	from KHOHANG
+	join inserted on KHOHANG.MaMH=inserted.MaMH
+end
+go
 ---Kiểm tra--
 --Kiểm tra khi thay đổi Username-- Do
 /*
@@ -631,8 +657,8 @@ BEGIN
 	ELSE
 		SELECT @ID = MAX(RIGHT(MaKH, 3)) FROM KHACHHANG
 		SELECT @ID = CASE
-			WHEN @ID >= 0 and @ID < 9 THEN 'KH0' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
-			WHEN @ID >= 9 THEN 'KH' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
+			WHEN @ID >= 0 and @ID < 9 THEN 'KH00' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
+			WHEN @ID >= 9 THEN 'KH0' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
 		END
 	RETURN @ID
 END
@@ -648,8 +674,25 @@ BEGIN
 	ELSE
 		SELECT @ID = MAX(RIGHT(MaHD, 3)) FROM HOADON
 		SELECT @ID = CASE
-			WHEN @ID >= 0 and @ID < 9 THEN 'HD0' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
-			WHEN @ID >= 9 THEN 'HD' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
+			WHEN @ID >= 0 and @ID < 9 THEN 'HD00' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
+			WHEN @ID >= 9 THEN 'HD0' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
+		END
+	RETURN @ID
+END
+go
+--Hàm tạo mã hóa đơn nhận hàng tự động--
+CREATE FUNCTION AUTO_IDHDN()
+RETURNS VARCHAR(6)
+AS
+BEGIN
+	DECLARE @ID VARCHAR(6)
+	IF (SELECT COUNT(MaHDN) FROM HOADONNHANHANG) = 0
+		SET @ID = '0'
+	ELSE
+		SELECT @ID = MAX(RIGHT(MaHDN, 3)) FROM HOADONNHANHANG
+		SELECT @ID = CASE
+			WHEN @ID >= 0 and @ID < 9 THEN 'HDN00' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
+			WHEN @ID >= 9 THEN 'HDN0' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
 		END
 	RETURN @ID
 END
@@ -727,6 +770,15 @@ begin
 	or Gia like N'%'+@Tim +'%'
 end
 go
+--Lấy tất cả hóa đơn theo ngày--
+create  proc Load_Bill_Date
+	@DateFront date,@DateBack date
+as 
+begin
+	select *from HOADON
+	where NgayLHD<=@DateBack and NgayLHD>=@DateFront
+end 
+go
 ------------------------------------------------
 create proc delete_all
 as
@@ -736,14 +788,14 @@ begin
 	delete from KHOHANG
 	delete  from HOADON
 	delete  from CHITIETHOADON
-	delete from HANGNHACUNGCAP
+	delete from HOADONNHANHANG
 	delete  from NHACUNGCAP
 	delete  from CHUCVU
 	delete  from MATHANG
 end
 -----
 go
-create proc get_all
+create  proc get_all
 as
 begin
 	select * from NHANVIEN
@@ -751,7 +803,7 @@ begin
 	select * from KHOHANG
 	select *  from HOADON
 	select *  from CHITIETHOADON
-	select * from HANGNHACUNGCAP
+	select * from HOADONNHANHANG
 	select *  from NHACUNGCAP
 	select *  from CHUCVU
 	select *  from MATHANG

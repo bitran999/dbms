@@ -556,10 +556,12 @@ namespace QuanLySieuThiTienLoi
             // 
             // dtNow
             // 
+            this.dtNow.CustomFormat = "dd/M/yyyy";
             this.dtNow.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtNow.Location = new System.Drawing.Point(520, 36);
+            this.dtNow.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtNow.Location = new System.Drawing.Point(773, 36);
             this.dtNow.Name = "dtNow";
-            this.dtNow.Size = new System.Drawing.Size(244, 23);
+            this.dtNow.Size = new System.Drawing.Size(102, 23);
             this.dtNow.TabIndex = 4;
             // 
             // FormMain

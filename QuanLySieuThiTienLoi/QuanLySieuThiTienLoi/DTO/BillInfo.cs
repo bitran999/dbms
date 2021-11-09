@@ -29,8 +29,8 @@ namespace QuanLySieuThiTienLoi.DTO
         {
                 this.idBill = dataRow["MaHD"].ToString();
                 this.idFood = dataRow["MaMH"].ToString();
-                this.count =int.Parse(dataRow["SoLuong"].ToString());
-                this.value = float.Parse(dataRow["GiaTriMH"].ToString());
+                this.count =(int)Convert.ToInt32(dataRow["SoLuong"].ToString());
+                this.value = (float)Convert.ToDouble(dataRow["GiaTriMH"].ToString());
         }
 
         public string IdBill { get => idBill; set => idBill = value; }

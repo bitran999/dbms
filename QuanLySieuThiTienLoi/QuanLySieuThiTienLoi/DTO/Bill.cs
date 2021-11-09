@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +34,7 @@ namespace QuanLySieuThiTienLoi.DTO
             this.date = dataRow["NgayLHD"].ToString();
             this.idCustomer = dataRow["MaKH"].ToString();
             this.idEmp = dataRow["MaNV"].ToString();
-            this.price =float.Parse( dataRow["GiaTri"].ToString()) ;
+            this.price = (float)Convert.ToDouble(dataRow["GiaTri"].ToString());
         }
         public string Id { get => id; set => id = value; }
         public string Date { get => date; set => date = value; }

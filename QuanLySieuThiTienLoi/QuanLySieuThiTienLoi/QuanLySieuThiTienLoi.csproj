@@ -53,12 +53,14 @@
     <Compile Include="DAO\BillDAO.cs" />
     <Compile Include="DAO\DataProvider.cs" />
     <Compile Include="DAO\FoodsDAO.cs" />
+    <Compile Include="DAO\TitleDAO.cs" />
     <Compile Include="DTO\Bill.cs" />
     <Compile Include="DTO\BillInfo.cs" />
     <Compile Include="DTO\Category.cs" />
     <Compile Include="DTO\Customer.cs" />
     <Compile Include="DTO\Employee.cs" />
     <Compile Include="DTO\Foods.cs" />
+    <Compile Include="DTO\Title.cs" />
     <Compile Include="FormChangePassWord.cs">
       <SubType>Form</SubType>
     </Compile>

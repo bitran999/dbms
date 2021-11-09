@@ -20,7 +20,11 @@ namespace QuanLySieuThiTienLoi
             InitializeComponent();
             LoadListEmployee();
             LoadListBill();
+            loadListFoods();
+            loadTitle();
         }
+        /*-------------------------Menu-----------------------------*/
+        /*-------------------------Nhân Viên-----------------------------*/
         public void LoadListEmployee()
         {
             dtgvEmployee.DataSource = EmployeeDAO.Instance.listEmployee();
@@ -125,14 +129,11 @@ namespace QuanLySieuThiTienLoi
             tbIdTitle.Text = "";
             tbId.Enabled = true;
         }
-
-        private void label12_Click(object sender, EventArgs e)
-        {
-
-        }
+        /*-------------------------Doanh số-----------------------------*/
         private void LoadListBill()
         {
             dtgvBill.DataSource = BillDAO.Instance.getListBill();
+            sales();
         }
 
         private void dtgvBill_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -154,7 +155,7 @@ namespace QuanLySieuThiTienLoi
             Bill bill = BillDAO.Instance.getBillById(tbIdBill.Text);
             tbIdBill.Text = bill.Id;
             tbIdCustomer.Text = bill.IdCustomer;
-            tbDate.Text = bill.Date;
+            dateTimeBill.Value = DateTime.Parse(bill.Date);
             tbIdEmployee.Text = bill.IdEmp;
             tbValue.Text = bill.Price.ToString();
         }
@@ -177,6 +178,150 @@ namespace QuanLySieuThiTienLoi
                 tbIdFood.Enabled = false;
                 LoadBillInfo();
             }
+        }
+
+        private void btnViewData_Click(object sender, EventArgs e)
+        {
+            string dayFront=dateTimePickerFront.Value.ToString("yyyy/M/dd");
+            string dayBack = dateTimePickerBack.Value.ToString("yyyy/M/dd");
+            dtgvBill.DataSource = BillDAO.Instance.getListBill(dayFront, dayBack);
+            sales();
+        }
+        private void sales()
+        {
+            float sales = 0;
+            for(int i = 0; i < dtgvBill.Rows.Count; i++)
+            {
+               sales+=float.Parse(dtgvBill.Rows[i].Cells[4].Value.ToString());
+            }
+            tbSales.Text = sales.ToString();
+        }
+
+        private void btnDelelteBill_Click(object sender, EventArgs e)
+        {
+            BillDAO.Instance.deleteById(tbIdBill.Text);
+            LoadListBill();
+        }
+
+        private void btnUpdateBill_Click(object sender, EventArgs e)
+        {
+            Bill bill = new Bill();
+            bill.Id = tbIdBill.Text;
+            bill.IdCustomer=tbIdCustomer.Text;
+            bill.Date=dateTimeBill.Value.ToString("yyyy/M/dd");
+            bill.IdEmp=tbIdEmployee.Text;
+            bill.Price = float.Parse(tbValue.Text);
+            BillDAO.Instance.Update(bill);
+        }
+
+        private void btnAddBill_Click(object sender, EventArgs e)
+        {
+            BillDAO.Instance.create(tbIdCustomer.Text,tbIdEmployee.Text);
+            MessageBox.Show("Thêm thành công!");
+        }
+
+        private void btnSearchIdBill_Click(object sender, EventArgs e)
+        {
+            Bill bill=BillDAO.Instance.getBillById(tbIdBill.Text);
+            if (bill != null)
+            {
+                tbIdBill.Text = bill.Id;
+                tbIdCustomer.Text = bill.IdCustomer;
+                dateTimeBill.Value = DateTime.Parse(bill.Date);
+                tbIdEmployee.Text = bill.IdEmp;
+                tbValue.Text = bill.Price.ToString();
+            }
+        }
+
+        private void tbLoad_Click(object sender, EventArgs e)
+        {
+            tbIdBill.Enabled = true;
+            tbIdBillInfo.Enabled = true;
+            tbIdBill.Text = "";
+            tbIdCustomer.Text = "";
+            dateTimeBill.Value = DateTime.Now;
+            tbIdEmployee.Text = "";
+            tbValue.Text = "";
+            tbIdBillInfo.Text = "";
+            tbIdFood.Text = "";
+            tbCount.Text = "";
+            tbValueFood.Text = "";
+        }
+
+        private void btnAddBillInfo_Click(object sender, EventArgs e)
+        {
+             BillInfoDAO.Instance.add(tbIdBillInfo.Text, tbIdFood.Text, int.Parse(tbCount.Text));
+            MessageBox.Show("Thêm thành công!");
+        }
+
+        private void loadListFoods()
+        {
+            List<Foods> list = FoodsDAO.Instance.getList();
+            cmbListFoods.DataSource = list;
+            cmbListFoods.DisplayMember = "name";
+            countFood();
+        }
+        private void countFood()
+        {
+                Foods food = cmbListFoods.SelectedItem as Foods;
+                Category category = CategoryDAO.Instance.getFood(food.Id);
+                tbCountFood.Text = category.Count.ToString();
+                tbIdFood.Text = category.Id;
+        }
+
+        private void cmbListFoods_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            countFood();
+        }
+
+        private void btnUpdateBillInfo_Click(object sender, EventArgs e)
+        {
+            BillInfoDAO.Instance.update(tbIdBill.Text, tbIdFood.Text, int.Parse(tbCount.Text));
+            MessageBox.Show("Sửa thành công!");
+        }
+
+        private void btnDeleteBillInfo_Click(object sender, EventArgs e)
+        {
+            BillInfoDAO.Instance.delete(tbIdBill.Text, tbIdFood.Text);
+            MessageBox.Show("Xóa thành công!");
+        }
+        /*-------------------------Chức Vụ-----------------------------*/
+        private void loadTitle()
+        {
+            dtgvTitle.DataSource = TitleDAO.Instance.getListTitle();
+        }
+        private void dtgvTitle_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                tbIdTitleM.Text = dtgvTitle.Rows[e.RowIndex].Cells[0].Value.ToString();
+                tbTitle.Text = dtgvTitle.Rows[e.RowIndex].Cells[1].Value.ToString();
+                tbSalary.Text = dtgvTitle.Rows[e.RowIndex].Cells[2].Value.ToString();
+                loadTitle();
+            }
+        }
+
+        private void btnDeleteTitle_Click(object sender, EventArgs e)
+        {
+            TitleDAO.Instance.delete(tbIdTitleM.Text);
+        }
+
+        private void btnUpdateTitle_Click(object sender, EventArgs e)
+        {
+            Title title = new Title();
+            title.Id = tbIdTitleM.Text;
+            title.Name = tbTitle.Text;
+            title.Salary =(float)Convert.ToDouble(tbSalary.Text);
+            TitleDAO.Instance.update(title);
+        }
+
+        private void btnAddTitle_Click(object sender, EventArgs e)
+        {
+            Title title = new Title();
+            title.Id = tbIdTitleM.Text;
+            title.Name = tbTitle.Text;
+            title.Salary = (float)Convert.ToDouble(tbSalary.Text);
+            TitleDAO.Instance.add(title);
         }
     }
 }

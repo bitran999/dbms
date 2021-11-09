@@ -24,7 +24,7 @@ namespace QuanLySieuThiTienLoi
             Customer customer = new Customer();
             customer.Name = tbName.Text;
             customer.Gender = tbGender.Text;
-            customer.Dob = tbDoB.Text;
+            customer.Dob = dtDoB.Value.ToString("yyyy/M/dd");
             customer.Address = tbAddress.Text;
             customer.PhoneNb = tbPhoneNb.Text;
             customer.Email = tbEmail.Text;
@@ -60,7 +60,7 @@ namespace QuanLySieuThiTienLoi
             tbId.Text = customer.Id;
             tbName.Text = customer.Name;
             tbGender.Text = customer.Gender;
-            tbDoB.Text = customer.Dob;
+            dtDoB.Value = DateTime.Parse(customer.Dob);
             tbAddress.Text = customer.Address;
             tbPhoneNb.Text = customer.PhoneNb;
             tbEmail.Text = customer.Email;
@@ -72,11 +72,24 @@ namespace QuanLySieuThiTienLoi
             customer.Id = tbId.Text;
             customer.Name = tbName.Text;
             customer.Gender = tbGender.Text;
-            customer.Dob = tbDoB.Text;
+            customer.Dob = dtDoB.Value.ToString("yyyy/M/dd");
             customer.Address = tbAddress.Text;
             customer.PhoneNb = tbPhoneNb.Text;
             customer.Email = tbEmail.Text;
             CustomerDAO.Instance.update(customer);
+            MessageBox.Show("Cập nhật thành công!");
+        }
+
+        private void tbSearch_Click(object sender, EventArgs e)
+        {
+            Customer customer = CustomerDAO.Instance.Search(tbId.Text);
+            tbId.Text = customer.Id;
+            tbGender.Text = customer.Gender;
+            dtDoB.Value = DateTime.Parse(customer.Dob);
+            tbAddress.Text = customer.Address;
+            tbName.Text = customer.Name;
+            tbPhoneNb.Text = customer.PhoneNb;
+            tbEmail.Text = customer.Email;
         }
     }
 }

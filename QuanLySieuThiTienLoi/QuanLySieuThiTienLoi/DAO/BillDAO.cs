@@ -31,8 +31,23 @@ namespace QuanLySieuThiTienLoi.DAO
                 idDefault = data;
             }
             string query = "exec Add_HoaDon @Date , @MaKH , @MaNV ";
-            string date = DateTime.Now.ToString("yyy/M/dd");
+            string date = DateTime.Now.ToString("yyyy/M/dd");
             DataProvider.Instance.ExecuteQuery(query, new object[] { date, idDefault, EmployeeDAO.Instance.getId() });
+        }
+        public void create(string idCus,string idEmp)
+        {
+            string idDefault;
+            if (idCus == "")
+            {
+                idDefault = "KH01";
+            }
+            else
+            {
+                idDefault = idCus;
+            }
+            string query = "exec Add_HoaDon @Date , @MaKH , @MaNV ";
+            string date = DateTime.Now.ToString("yyyy/M/dd");
+            DataProvider.Instance.ExecuteQuery(query, new object[] { date, idDefault, idEmp});
         }
         public string getId()
         {
@@ -46,8 +61,8 @@ namespace QuanLySieuThiTienLoi.DAO
             DataTable dataTable = DataProvider.Instance.ExecuteQuery(query);
             foreach (DataRow item in dataTable.Rows)
             {
-                Bill billInfo = new Bill(item);
-                l.Add(billInfo);
+                Bill bill = new Bill(item);
+                l.Add(bill);
             }
             return l;
         }
@@ -55,9 +70,35 @@ namespace QuanLySieuThiTienLoi.DAO
         {
             string query = "exec info_HoaDon @MaHD";
             DataTable dataTable = DataProvider.Instance.ExecuteQuery(query,new object[] { data});
-            DataRow dataRow = dataTable.Rows[0];
-            Bill bill = new Bill(dataRow);
-            return bill;
+            if (dataTable.Rows.Count > 0)
+            {
+                DataRow dataRow = dataTable.Rows[0];
+                Bill bill = new Bill(dataRow);
+                return bill;
+            }
+            return null;
+        }
+        public List<Bill> getListBill(string dateF,string dateB)
+        {
+            List<Bill> l = new List<Bill>();
+            string query = "exec  Load_Bill_Date @DateFont , @DateBack ";
+            DataTable dataTable = DataProvider.Instance.ExecuteQuery(query,new object[] { dateF,dateB});
+            foreach (DataRow item in dataTable.Rows)
+            {
+                Bill bill = new Bill(item);
+                l.Add(bill);
+            }
+            return l;
+        }
+        public void deleteById(string data)
+        {
+            string query = "exec  Delete_HoaDon @MaHD ";
+            DataTable dataTable = DataProvider.Instance.ExecuteQuery(query, new object[] { data });
+        }
+        public void Update(Bill bill)
+        {
+            string query = "exec  Update_HoaDon @MaHD , @NgayLHD , @MaKH , @MaNV ";
+            DataTable dataTable = DataProvider.Instance.ExecuteQuery(query, new object[] { bill.Id,bill.Date,bill.IdCustomer,bill.IdEmp,bill.Price });
         }
     }
 }

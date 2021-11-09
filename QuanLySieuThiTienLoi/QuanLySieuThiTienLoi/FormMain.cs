@@ -126,7 +126,7 @@ namespace QuanLySieuThiTienLoi
                 MessageBox.Show("Số sản phẩm phải lớn hơn 0");
             }
             nmFoodsCount.Value = 0;
-            demo();
+            moneyPay();
         }
         private void btnDeleteFoods_Click(object sender, EventArgs e)
         {
@@ -156,7 +156,7 @@ namespace QuanLySieuThiTienLoi
         {
             countFood("");
         }
-        private void demo()
+        private void moneyPay()
         {
             float sum = 0;
             for (int i = 0; i < listView.Items.Count; i++)
@@ -170,8 +170,6 @@ namespace QuanLySieuThiTienLoi
 
         private void btnPay_Click(object sender, EventArgs e)
         {
-            try
-            {
                 BillDAO.Instance.create(tbIdCustomer.Text);
                 string idBill = BillDAO.Instance.getId();
                 for (int i = 0; i < listView.Items.Count; i++)
@@ -181,8 +179,15 @@ namespace QuanLySieuThiTienLoi
                     int count = int.Parse(countStr);
                     BillInfoDAO.Instance.add(idBill, idFood, count);
                 }
+            MessageBox.Show("Hoàn thành!");
+            reload();
+        }
+        private void reload()
+        {
+            for (int i = 0; i < listView.Items.Count; i++)
+            {
+                listView.Items.RemoveAt(i);
             }
-            catch (Exception) { }
         }
     }
 }

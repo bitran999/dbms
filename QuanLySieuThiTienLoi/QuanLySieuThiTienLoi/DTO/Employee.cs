@@ -52,7 +52,7 @@ namespace QuanLySieuThiTienLoi.DTO
             this.passWord = dataRow["Pass"].ToString();
             this.idTitle = dataRow["MaChucVu"].ToString().Trim();
             this.title = dataRow["TenChucVu"].ToString();
-            this.salary =float.Parse(dataRow["Luong"].ToString());
+            this.salary =(float)Convert.ToDouble(dataRow["Luong"].ToString());
         }
         public string Id { get => id; set => id = value ; }
         public string Name { get => name; set => name = value; }

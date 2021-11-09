@@ -25,7 +25,7 @@ namespace QuanLySieuThiTienLoi
             tbID.Text = employee.Id;
             tbName.Text = employee.Name; 
             tbGender.Text = employee.Gender;
-            tbDoB.Text= employee.Dob;
+            dtPicker.Value= DateTime.Parse(employee.Dob);
             tbAddress.Text= employee.Address;
             tbPhoneNb.Text= employee.PhoneNb;
             tbUserName.Text= employee.UserName;
@@ -39,7 +39,7 @@ namespace QuanLySieuThiTienLoi
             Employee employee = new Employee() ;
             employee.Name = tbName.Text;
             employee.Gender = tbGender.Text;
-            employee.Dob = tbDoB.Text;
+            employee.Dob = dtPicker.Value.ToString("yyyy/M/dd");
             employee.Address = tbAddress.Text;
             employee.PhoneNb = tbPhoneNb.Text;
             EmployeeDAO.Instance.update(employee);

@@ -30,6 +30,10 @@ namespace QuanLySieuThiTienLoi
         private void InitializeComponent()
         {
             this.panel11 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.tbId = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnUpdateInfo = new System.Windows.Forms.Button();
             this.panel9 = new System.Windows.Forms.Panel();
@@ -49,19 +53,16 @@ namespace QuanLySieuThiTienLoi
             this.panel2 = new System.Windows.Forms.Panel();
             this.tbName = new System.Windows.Forms.TextBox();
             this.labelNameEmp = new System.Windows.Forms.Label();
-            this.tbDoB = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.tbId = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.dtDoB = new System.Windows.Forms.DateTimePicker();
+            this.tbSearch = new System.Windows.Forms.Button();
             this.panel11.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel11
@@ -81,10 +82,49 @@ namespace QuanLySieuThiTienLoi
             this.panel11.Size = new System.Drawing.Size(437, 424);
             this.panel11.TabIndex = 9;
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(71, 376);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(84, 34);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Cập Nhật";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.tbSearch);
+            this.panel1.Controls.Add(this.tbId);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(6, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(421, 39);
+            this.panel1.TabIndex = 8;
+            // 
+            // tbId
+            // 
+            this.tbId.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbId.Location = new System.Drawing.Point(143, 11);
+            this.tbId.Name = "tbId";
+            this.tbId.Size = new System.Drawing.Size(174, 23);
+            this.tbId.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(109, 17);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Mã Khách Hàng";
+            // 
             // btnExit
             // 
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(293, 376);
+            this.btnExit.Location = new System.Drawing.Point(288, 376);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(85, 34);
             this.btnExit.TabIndex = 7;
@@ -95,7 +135,7 @@ namespace QuanLySieuThiTienLoi
             // btnUpdateInfo
             // 
             this.btnUpdateInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdateInfo.Location = new System.Drawing.Point(164, 376);
+            this.btnUpdateInfo.Location = new System.Drawing.Point(190, 376);
             this.btnUpdateInfo.Name = "btnUpdateInfo";
             this.btnUpdateInfo.Size = new System.Drawing.Size(74, 34);
             this.btnUpdateInfo.TabIndex = 6;
@@ -186,7 +226,7 @@ namespace QuanLySieuThiTienLoi
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.tbDoB);
+            this.panel4.Controls.Add(this.dtDoB);
             this.panel4.Controls.Add(this.labelDoB);
             this.panel4.Location = new System.Drawing.Point(6, 166);
             this.panel4.Name = "panel4";
@@ -257,52 +297,26 @@ namespace QuanLySieuThiTienLoi
             this.labelNameEmp.TabIndex = 0;
             this.labelNameEmp.Text = "Họ và tên";
             // 
-            // tbDoB
+            // dtDoB
             // 
-            this.tbDoB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbDoB.Location = new System.Drawing.Point(143, 8);
-            this.tbDoB.Name = "tbDoB";
-            this.tbDoB.Size = new System.Drawing.Size(262, 23);
-            this.tbDoB.TabIndex = 3;
+            this.dtDoB.CustomFormat = "dd/M/yyyy";
+            this.dtDoB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtDoB.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtDoB.Location = new System.Drawing.Point(282, 8);
+            this.dtDoB.Name = "dtDoB";
+            this.dtDoB.Size = new System.Drawing.Size(123, 23);
+            this.dtDoB.TabIndex = 1;
             // 
-            // panel1
+            // tbSearch
             // 
-            this.panel1.Controls.Add(this.tbId);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(6, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(421, 39);
-            this.panel1.TabIndex = 8;
-            // 
-            // tbId
-            // 
-            this.tbId.Enabled = false;
-            this.tbId.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbId.Location = new System.Drawing.Point(143, 11);
-            this.tbId.Name = "tbId";
-            this.tbId.Size = new System.Drawing.Size(262, 23);
-            this.tbId.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 14);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(109, 17);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Mã Khách Hàng";
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(30, 376);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(84, 34);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Cập Nhật";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.tbSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSearch.Location = new System.Drawing.Point(323, 8);
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.Size = new System.Drawing.Size(85, 26);
+            this.tbSearch.TabIndex = 8;
+            this.tbSearch.Text = "Tìm";
+            this.tbSearch.UseVisualStyleBackColor = true;
+            this.tbSearch.Click += new System.EventHandler(this.tbSearch_Click);
             // 
             // FormCustommer
             // 
@@ -314,6 +328,8 @@ namespace QuanLySieuThiTienLoi
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormCustommer";
             this.panel11.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             this.panel6.ResumeLayout(false);
@@ -326,8 +342,6 @@ namespace QuanLySieuThiTienLoi
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -354,10 +368,11 @@ namespace QuanLySieuThiTienLoi
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.Label labelNameEmp;
-        private System.Windows.Forms.TextBox tbDoB;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox tbId;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DateTimePicker dtDoB;
+        private System.Windows.Forms.Button tbSearch;
     }
 }

@@ -39,7 +39,6 @@ namespace QuanLySieuThiTienLoi
             this.tbGender = new System.Windows.Forms.TextBox();
             this.labelGender = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.tbDoB = new System.Windows.Forms.TextBox();
             this.labelDoB = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.tbSalary = new System.Windows.Forms.TextBox();
@@ -63,6 +62,7 @@ namespace QuanLySieuThiTienLoi
             this.btnUpdateInfo = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.panel11 = new System.Windows.Forms.Panel();
+            this.dtPicker = new System.Windows.Forms.DateTimePicker();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -160,20 +160,12 @@ namespace QuanLySieuThiTienLoi
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.tbDoB);
+            this.panel4.Controls.Add(this.dtPicker);
             this.panel4.Controls.Add(this.labelDoB);
             this.panel4.Location = new System.Drawing.Point(6, 141);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(323, 39);
             this.panel4.TabIndex = 2;
-            // 
-            // tbDoB
-            // 
-            this.tbDoB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbDoB.Location = new System.Drawing.Point(143, 8);
-            this.tbDoB.Name = "tbDoB";
-            this.tbDoB.Size = new System.Drawing.Size(86, 23);
-            this.tbDoB.TabIndex = 2;
             // 
             // labelDoB
             // 
@@ -284,6 +276,7 @@ namespace QuanLySieuThiTienLoi
             this.tbPass.Name = "tbPass";
             this.tbPass.Size = new System.Drawing.Size(163, 23);
             this.tbPass.TabIndex = 1;
+            this.tbPass.UseSystemPasswordChar = true;
             // 
             // labelPassWord
             // 
@@ -403,6 +396,16 @@ namespace QuanLySieuThiTienLoi
             this.panel11.Size = new System.Drawing.Size(335, 517);
             this.panel11.TabIndex = 8;
             // 
+            // dtPicker
+            // 
+            this.dtPicker.CustomFormat = "dd/M/yyyy";
+            this.dtPicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtPicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtPicker.Location = new System.Drawing.Point(204, 9);
+            this.dtPicker.Name = "dtPicker";
+            this.dtPicker.Size = new System.Drawing.Size(102, 23);
+            this.dtPicker.TabIndex = 1;
+            // 
             // FormInfoAccout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -472,6 +475,6 @@ namespace QuanLySieuThiTienLoi
         private System.Windows.Forms.Button btnUpdateInfo;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Panel panel11;
-        private System.Windows.Forms.TextBox tbDoB;
+        private System.Windows.Forms.DateTimePicker dtPicker;
     }
 }
