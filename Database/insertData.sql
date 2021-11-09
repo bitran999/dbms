@@ -2,16 +2,16 @@
 
 -- Thêm bảng CHUCVU --
 
-INSERT INTO CHUCVU VALUES('QLCH',N'Quản lý cửa hàng',15000000);
-INSERT INTO CHUCVU VALUES('NVBH',N'Nhân viên bán hàng',5500000);
+INSERT INTO CHUCVU VALUES('MNG',N'Quản lý cửa hàng',15000000);
+INSERT INTO CHUCVU VALUES('ST',N'Nhân viên bán hàng',5500000);
 
 -- Thêm bảng NHANVIEN --
 INSERT INTO NHANVIEN
-VALUES ('NV01',N'Nguyễn Như',N'Nữ','2000/04/13',N'75 Trương Văn Thành, Q9, HCM','nguyennhu','12345','0927345678','NVBH');
+VALUES ('NV01',N'Nguyễn Như',N'Nữ','2000/04/13',N'75 Trương Văn Thành, Q9, HCM','nguyennhu','12345','0927345678','ST');
 INSERT INTO NHANVIEN
-VALUES ('NV02',N'Lê Văn Minh',N'Nam','1997/05/24',N'Phường Long Thạnh Mỹ, Q9, HCM','minhle','12345','0338574442','QLCH');
+VALUES ('NV02',N'Lê Văn Minh',N'Nam','1997/05/24',N'Phường Long Thạnh Mỹ, Q9, HCM','minhle','12345','0338574442','MNG');
 INSERT INTO NHANVIEN
-VALUES ('NV03',N'Ngô Thành Tuấn',N'Nam','1999/06/10',N'731 Trần Hưng Đạo, Q5, HCM','tuanngo','12345','0913758498','NVBH');
+VALUES ('NV03',N'Ngô Thành Tuấn',N'Nam','1999/06/10',N'731 Trần Hưng Đạo, Q5, HCM','tuanngo','12345','0913758498','ST');
 
 -- Thêm bảng MATHANG --
 INSERT INTO MATHANG

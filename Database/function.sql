@@ -19,6 +19,7 @@ as
 	values(@TenKH,@GioiTinh,@NgaySinh,@DiaChi,@SDT,@Email)
 
 go
+
 --Thêm hóa đơn
 create proc Add_HoaDon
 	@NgayLHD date,
@@ -177,8 +178,8 @@ as
 	set TenNCC=@TenNCC,DiaChi=@DiaChi,SDT=@SDT,STK=@STK 
 	where MaNCC=@MaNCC
 go
---Cập nhật nhân viên--
-create	proc Update_NhanVien
+--Cập nhật nhân viên cho admin--
+create	proc Update_NhanVien_Admin
 	@MaNV nchar(10),
 	@TenNV nvarchar(50),
 	@GioiTinh nchar(10),
@@ -191,10 +192,9 @@ create	proc Update_NhanVien
 as
 	update NHANVIEN 
 	set TenNV=@TenNV,GioiTinh=@GioiTinh,NgaySinh=@NgaySinh,
-	Users=@Users,Pass=@Pass,SDT=@SDT,MaChucVu=@MaChucVu
+	Users=@Users,Pass=@Pass,SDT=@SDT,MaChucVu=@MaChucVu,DiaChi=@DiaChi
 	where MaNV=@MaNV
 go
-
 --Cập nhật số lượng trong bảng kho hàng--
 create proc Update_SoLuongMH
 	@MaMH nchar(10),
@@ -214,7 +214,8 @@ create proc Update_ThongTinNhanVien
 	@SDT nchar(10)
 as
 begin
-	update NHANVIEN set
+	update NHANVIEN 
+	set
 	TenNV=@TenNV,GioiTinh=@GioiTinh,NgaySinh=@NgaySinh,DiaChi=@DiaChi, SDT=@SDT
 	where MaNV=@MaNV
 end
@@ -309,7 +310,6 @@ create proc Load_KhachHang
 as
 select * from KHACHHANG
 go
-
 --Load dữ liệu kho hàng.--
 create proc Load_KhoHang
 as
@@ -358,7 +358,7 @@ create proc Load_ThongTinNV
 @MaNV nchar(10)
 as
 begin
-	select TenNV,GioiTinh,NgaySinh,DiaChi,SDT,TenChucVu,Luong 
+	select MaNV, TenNV,GioiTinh,NgaySinh,DiaChi,Users,Pass,SDT,NHANVIEN.MaChucVu,TenChucVu,Luong 
 	from NHANVIEN,CHUCVU
 	where NHANVIEN.MaChucVu=CHUCVU.MaChucVu and MaNV=@MaNV 
 end
@@ -378,7 +378,10 @@ go
 --Load thông tin toàn bộ của nhân viên--
 create proc Load_Info_NhanVien
 as
-select distinct * from NHANVIEN,CHUCVU
+begin
+	select MaNV,TenNV ,GioiTinh ,NgaySinh,DiaChi,Users,Pass ,SDT ,NHANVIEN.MaChucVu,TenChucVu ,Luong 
+	from NHANVIEN inner join CHUCVU on NHANVIEN.MaChucVu=CHUCVU.MaChucVu
+end
 go
 --Load thông tin trả về kho hàng, chi tiết các loại mặt hàng
 create proc Load_Info_WareHouse
@@ -425,7 +428,7 @@ begin
 	where MaMH=@MaMH
 end
 go
---Thông tin bảng hóa đơn--
+--Thông tin bảng hóa đơn theo id--
 create proc info_HoaDon
 	@MaHD nchar(5)
 as
@@ -433,6 +436,26 @@ begin
 	select *
 	from HOADON
 	where MaHD=@MaHD
+end
+go
+--Thông tin bảng chi tiet hóa đơn theo id--
+create proc info_ChiTietHoaDon
+	@MaHD nchar(5)
+as
+begin
+	select *
+	from CHITIETHOADON
+	where MaHD=@MaHD
+end
+go
+---Thông tin chi tiết hóa đơn theo mã hóa đơn và mã sản phẩm--
+create proc info_ChiTietHoaDon_FindOne
+	@MaHD nchar(5),@MaMH nvarchar(10)
+as
+begin
+	select *
+	from CHITIETHOADON
+	where MaHD=@MaHD and MaMH=@MaMH
 end
 go
 --Liệt kê các mã mặt hàng--
@@ -445,6 +468,8 @@ begin
 	where KHOHANG.MaMH=MATHANG.MaMH 
 end
 go
+
+
 --Trigger--
 -- Cập nhật kho hàng khi có đơn hàng mới hoặc cập nhật --
 create  trigger Update_HangTrongKho_Them_Don
@@ -463,7 +488,7 @@ end
 go
 -- Cập nhật kho hàng khi có đơn hàng bị hủy --
 create  trigger Update_HangTrongKho_Huy_Don
-on CHITIETHOADON after delete 
+on CHITIETHOADON for delete 
 as 
 begin
 	update KHOHANG
@@ -478,8 +503,8 @@ end
 
 go
 -- Cập nhật hàng trong kho sau khi cập nhật hóa đơn --
-create trigger Update_HangTrongKho_Sua_Don
-on CHITIETHOADON for update 
+create  trigger Update_HangTrongKho_Sua_Don
+on CHITIETHOADON after update 
 as
 begin 
 	update KHOHANG
@@ -523,9 +548,9 @@ begin
 end
 go
 
-
 ---Kiểm tra--
---Kiểm tra khi thay đổi Username--
+--Kiểm tra khi thay đổi Username-- Do
+/*
 create function Check_UserName(@User nvarchar(10))
 returns int
 as
@@ -537,28 +562,65 @@ begin
 	return 0;
 end
 go
---Kiểm tra xem mật khẩu mới có khác mật khẩu cũ--
-create function Check_PassWord(@MaNV nchar(10),@Pass nvarchar(10))
-returns int
+*/
+--Kiểm tra khi thay đổi Username--
+create proc Check_UserName
+	@Users nchar(10)
 as
-begin 
-	if (@Pass=(select Pass from NHANVIEN where MaNV=@MaNV))
-	begin
-		return 1;
-	end
-	return 0;
+begin
+	select *
+	from NHANVIEN
+	where Users=@Users
 end
 go
---Kiểm tra login--
-create proc Check_Login
-@UserName varchar(10),@PassWord varchar(10)
-as 
-begin
-	select * from NHANVIEN where Users=@UserName and Pass=@PassWord;
+--Kiểm tra xem mật khẩu mới có khác mật khẩu cũ--
+create proc Check_PassWord(@MaNV nchar(10),@Pass nvarchar(10))
+as
+begin 
+	select *
+	from NHANVIEN
+	where MaNV=@MaNV and Pass=@Pass
+end
+go
+--Kiểm tra xem mã nhân viên đã có chưa--
+create proc Check_MaNV(@MaNV nchar(10))
+as
+begin 
+	select *
+	from NHANVIEN
+	where MaNV=@MaNV
+end
+go
+--Đổi mật khẩu--
+create proc Change_PassWord(@MaNV nchar(10),@Pass nvarchar(10))
+as
+begin 
+	update NHANVIEN
+	set Pass=@Pass
+	where MaNV=@MaNV
+end
+go
+--Kiểm tra xem khách hàng đã có số điện thoại hay email trùng chưa
+create proc Check_Customer(@SDT nchar(10),@Email nvarchar(30))
+as
+begin 
+	select *
+	from KHACHHANG
+	where SDT=@SDT or Email=@Email
 end
 go
 
+--Hàm kiểm tra số lượng và trạng thái của sản phẩm trong kho--
+create proc Check_MatHang_Category(@MaMH nchar(10))
+as
+begin 
+	select TrangThai,SoLuong
+	from KHOHANG
+	where MaMH=@MaMH
+end
+go
 --Hàm tạo mã khách hàng tự động----
+
 CREATE FUNCTION AUTO_IDKH()
 RETURNS VARCHAR(5)
 AS
@@ -570,7 +632,7 @@ BEGIN
 		SELECT @ID = MAX(RIGHT(MaKH, 3)) FROM KHACHHANG
 		SELECT @ID = CASE
 			WHEN @ID >= 0 and @ID < 9 THEN 'KH0' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
-			WHEN @ID >= 9 THEN 'KH00' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
+			WHEN @ID >= 9 THEN 'KH' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
 		END
 	RETURN @ID
 END
@@ -587,7 +649,7 @@ BEGIN
 		SELECT @ID = MAX(RIGHT(MaHD, 3)) FROM HOADON
 		SELECT @ID = CASE
 			WHEN @ID >= 0 and @ID < 9 THEN 'HD0' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
-			WHEN @ID >= 9 THEN 'HD00' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
+			WHEN @ID >= 9 THEN 'HD' + CONVERT(CHAR, CONVERT(INT, @ID) + 1)
 		END
 	RETURN @ID
 END
@@ -631,7 +693,7 @@ go
 create proc Search_NhanVien
 	@TimKiem nvarchar(30)
 as
-	select * from NHANVIEN
+	select MaNV from NHANVIEN
 	where MaNV like N'%'+@TimKiem +'%'
 	or TenNV like N'%'+@TimKiem +'%'
 	or GioiTinh like N'%'+@TimKiem +'%'
@@ -641,13 +703,13 @@ as
 go
 --Tìm MaNV khi đăng nhập users thành công và kiểm tra đăng nhập--
 create proc NhanVien_DangNhap
-	@Users nchar(10),
-	@Pass nchar(10)
+	@UserName nchar(10),
+	@PassWord nchar(10)
 as
 begin
 	select MaNV
 	from NHANVIEN
-	where Users=@Users and Pass=@Pass;
+	where Users=@UserName and Pass=@PassWord;
 end
 go
 --Tìm kiếm trong kho hàng--
@@ -665,3 +727,32 @@ begin
 	or Gia like N'%'+@Tim +'%'
 end
 go
+------------------------------------------------
+create proc delete_all
+as
+begin
+	delete from NHANVIEN
+	delete from KHACHHANG
+	delete from KHOHANG
+	delete  from HOADON
+	delete  from CHITIETHOADON
+	delete from HANGNHACUNGCAP
+	delete  from NHACUNGCAP
+	delete  from CHUCVU
+	delete  from MATHANG
+end
+-----
+go
+create proc get_all
+as
+begin
+	select * from NHANVIEN
+	select * from KHACHHANG
+	select * from KHOHANG
+	select *  from HOADON
+	select *  from CHITIETHOADON
+	select * from HANGNHACUNGCAP
+	select *  from NHACUNGCAP
+	select *  from CHUCVU
+	select *  from MATHANG
+end
