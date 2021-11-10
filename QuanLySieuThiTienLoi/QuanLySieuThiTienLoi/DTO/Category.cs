@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,13 @@ namespace QuanLySieuThiTienLoi.DTO
 
         public Category()
         {
+        }
+        public Category(DataRow dataRow)
+        {
+
+            this.id = (string)dataRow["MaMH"];
+            this.status = (string)dataRow["TrangThai"];
+            this.count = Convert.ToInt32(dataRow["SoLuong"]);
         }
 
         public Category(string id, string status, int count)

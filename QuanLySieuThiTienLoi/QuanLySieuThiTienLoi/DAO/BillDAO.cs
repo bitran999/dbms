@@ -24,7 +24,7 @@ namespace QuanLySieuThiTienLoi.DAO
             string idDefault;
             if (data == "")
             {
-                idDefault = "KH01";
+                idDefault = "KH001";
             }
             else
             {
@@ -99,6 +99,16 @@ namespace QuanLySieuThiTienLoi.DAO
         {
             string query = "exec  Update_HoaDon @MaHD , @NgayLHD , @MaKH , @MaNV ";
             DataTable dataTable = DataProvider.Instance.ExecuteQuery(query, new object[] { bill.Id,bill.Date,bill.IdCustomer,bill.IdEmp,bill.Price });
+        }
+        public float profit(List<string> l)
+        {
+            float rs = 0;
+            string query = "exec LoiNhuan_HoaDon @MaHD";
+            for(int i = 0; i < l.Count; i++)
+            {
+               rs+=(float)Convert.ToDouble(DataProvider.Instance.ExecuteQuery(query, new object[] { l[i] }).Rows[0]["LoiNhuan"].ToString());
+            }
+            return rs;
         }
     }
 }

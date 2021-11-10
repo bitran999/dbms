@@ -67,7 +67,7 @@ namespace QuanLySieuThiTienLoi
         private void btnSearchCustomer_Click(object sender, EventArgs e)
         {
             Customer customer = CustomerDAO.Instance.Search(tbCustomer.Text);
-            tbID.Text = customer.Id;
+            tbCustomer.Text = customer.Id;
             tbName.Text = customer.Name;
             tbPhoneNb.Text = customer.PhoneNb;
             tbEmail.Text = customer.Email;

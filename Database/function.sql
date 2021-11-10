@@ -61,6 +61,12 @@ create proc Add_KhoHang
 as
 	insert into KHOHANG values(@MaMH,NULL,NULL)
 go
+--Thêm mã mặt hàng vào kho hàng.--
+create proc Add_KhoHang_All
+	@MaMH nchar(10),@SoLuong int
+as
+	insert into KHOHANG(MaMH,SoLuong) values(@MaMH,@SoLuong)
+go
 --Thêm mặt hàng.--
 create proc Add_MatHang
 	@MaMH nchar(10),
@@ -156,16 +162,16 @@ as
 	where MaKH=@MaKH
 go
 --Cập nhật mặt hàng--
-create proc Update_MatHang
+create  proc Update_MatHang
 @MaMH nchar(10),
 @TenMH nvarchar(50),
 @Gia float,
+@GiaGoc float,
 @NgaySX date,
-@HanSD nchar(10),
-@MaLoaiMH nchar(10)
+@HanSD nchar(10)
 as
 	update MATHANG 
-	set	TenMH=@TenMH,Gia=@Gia,NgaySX=@NgaySX,HanSD=@HanSD
+	set	TenMH=@TenMH,Gia=@Gia,NgaySX=@NgaySX,HanSD=@HanSD,GiaGoc=@GiaGoc
 	where MaMH=@MaMH
 go
 --Cập nhật nhà cung cấp--
@@ -240,7 +246,7 @@ go
 create proc Delete_HoaDonNhan
 	@MaHDN nchar(6)
 as
-	delete from HOADONNHAN where MaHDN=@MaHDN
+	delete from HOADONNHANHANG where MaHDN=@MaHDN
 go
 --Xóa hóa đơn.--
 create proc Delete_HoaDon
@@ -295,9 +301,11 @@ select * from CHUCVU
 go
 
 --Load dữ liệu nhà cung cấp.--
-create proc Load_HoaDonNhan
+create   proc Load_HoaDonNhan
+	@MaNCC varchar(10)
 as
-select * from HOADONNHANHANG
+	select * from HOADONNHANHANG
+	where MaNCC=@MaNCC;
 go
 
 --Load dữ liệu hóa đơn.--
@@ -312,14 +320,15 @@ create proc Load_KhachHang
 as
 select * from KHACHHANG
 go
+
 --Load dữ liệu kho hàng.--
-create proc Load_KhoHang
+create  proc Load_KhoHang
 as
 select * from KHOHANG
 go
 
 --Load dữ liệu mặt hàng.--
-create proc Load_MatHang
+create alter proc Load_MatHang
 as
 select * from MATHANG
 go
@@ -336,24 +345,6 @@ as
 select * from NHANVIEN
 go
 
---Load MaMH trong HangNhaCungCap--
-create proc LoadMaMH_HNCC
-as
-begin
-select	distinct HANGNHACUNGCAP.MaMH
-	from HANGNHACUNGCAP
-end
-go
-
---Load MaMH trong cả HangNhaCungCap và ChiTietHoaDon--
-create proc LoadHangNCC_CTHD
-as
-begin
-	select distinct HANGNHACUNGCAP.MaMH
-	from HANGNHACUNGCAP, CHITIETHOADON
-	where HANGNHACUNGCAP.MaMH=CHITIETHOADON.MaMH
-end
-go
 
 --Load thông tin nhân viên--
 create proc Load_ThongTinNV
@@ -385,20 +376,6 @@ begin
 	from NHANVIEN inner join CHUCVU on NHANVIEN.MaChucVu=CHUCVU.MaChucVu
 end
 go
---Load thông tin trả về kho hàng, chi tiết các loại mặt hàng
-create proc Load_Info_WareHouse
-as
-begin
-	select MATHANG.MaMH as [Mã Mặt Hàng],
-	TenMH as [Tên Mặt Hàng],
-	Gia as [Giá],
-	NgaySX as [Ngày Sản Xuất],
-	HanSD as[Hạn Sử Dụng],
-	TrangThai as[Trạng Thái],
-	SoLuong as[Số Lượng]
-	from MATHANG inner join KHOHANG on MATHANG.MaMH=KHOHANG.MaMH
-end
-go
 --Thông tin về giá cả số lượng ứng với từng loại mặt hàng--
 create proc info_HoaDon_MatHang
 	@MaHD nchar(5),
@@ -420,14 +397,13 @@ begin
 	where CHITIETHOADON.MaMH=MATHANG.MaMH and CHITIETHOADON.MaHD=@MaHD
 end
 go
---Thông tin về tên sản phẩm và giá tương ứng với MaMH.--
-create proc info_MaMH_TenMH_Gia
+
+---Lấy  mặt hàng theo mã---
+create   proc Load_MatHang_MaMH
 	@MaMH nchar(10)
 as
 begin
-	select *
-	from MATHANG
-	where MaMH=@MaMH
+	select MaMH,TenMH,Gia,GiaGoc,NgaySX,HanSD from MATHANG where MaMH=@MaMH
 end
 go
 --Thông tin bảng hóa đơn theo id--
@@ -460,16 +436,7 @@ begin
 	where MaHD=@MaHD and MaMH=@MaMH
 end
 go
---Liệt kê các mã mặt hàng--
---Xem kho hàng--
-create proc XemKhoHang
-as
-begin
-	select KHOHANG.MaMH,TenMH,Gia, TrangThai,SoLuong
-	from KHOHANG,MATHANG 
-	where KHOHANG.MaMH=MATHANG.MaMH 
-end
-go
+
 ---Lấy ra lợi nhuận mỗi hóa đơn--
 create proc LoiNhuan_HoaDon
 	@MaHD varchar(5)
@@ -525,6 +492,7 @@ begin
 	inner join deleted as d on i.MaMH=d.MaMH
 end
 go
+
 --Cập nhật giá trị chi tiết hóa đơn --
 create trigger Update_TongGiaTriMH_ChiTietHoaDon
 on CHITIETHOADON for insert,update,delete
@@ -569,6 +537,20 @@ begin
 	update KHOHANG set  TrangThai=N'Hết' where SoLuong=0
 end
 go
+-- Cập nhật kho hàng khi xóa hóa đơn nhận hàng --
+create  trigger Update_HangTrongKho_Delete_HoaDonNhan
+on HOADONNHANHANG for delete 
+as 
+begin
+	update KHOHANG
+	set SoLuong=KHOHANG.SoLuong+(
+		select SoLuong
+		from deleted
+		where deleted.MaMH=KHOHANG.MaMH
+	)
+	from KHOHANG
+	join deleted on KHOHANG.MaMH=deleted.MaMH
+end
 -- Cập nhật kho hàng khi có hàng mới nhận --
 create  trigger Update_HangTrongKho_Insert_HoaDonNhan
 on HOADONNHANHANG for insert 
@@ -583,6 +565,18 @@ begin
 	from KHOHANG
 	join inserted on KHOHANG.MaMH=inserted.MaMH
 end
+-- Cập nhật hàng trong kho sau khi cập nhật hóa đơn nhận hàng--
+create  trigger Update_HangTrongKho_Update_HoaDonNhan
+on HOADONNHANHANG after update 
+as
+begin 
+	update KHOHANG
+	set KHOHANG.SoLuong=KHOHANG.SoLuong- i.SoLuong+d.SoLuong
+	from KHOHANG
+	inner join inserted as i on KHOHANG.MaMH=i.MaMH
+	inner join deleted as d on i.MaMH=d.MaMH
+end
+go
 go
 ---Kiểm tra--
 --Kiểm tra khi thay đổi Username-- Do
@@ -732,6 +726,13 @@ select * from MATHANG
 	or Gia like N'%'+@Tim +'%'
 	or HanSD like N'%'+@Tim +'%'
 go
+--Tìm kiếm mặt hàng theo mã nhà cung cấp--
+create proc Search_MatHang_NCC
+	@Tim nvarchar(30)
+as
+	select * from HOADONNHANHANG
+	where MaNCC like N'%'+@Tim +'%'
+go
 --Tìm kiếm nhà cung cấp.--
 create proc Search_NhaCungCap
 	@Tim nvarchar(30)
@@ -767,18 +768,15 @@ begin
 end
 go
 --Tìm kiếm trong kho hàng--
-create proc Search_KhoHang
+create  proc Search_KhoHang
 	@Tim nvarchar(30)
 as
 begin
-	select KHOHANG.MaMH,TenMH,Gia, TrangThai,SoLuong 
-	from KHOHANG, MATHANG
-	where KHOHANG.MaMH=MATHANG.MaMH and 
-	KHOHANG.MaMH like N'%'+@Tim +'%'
+	select MaMH, TrangThai,SoLuong 
+	from KHOHANG
+	where MaMH like N'%'+@Tim +'%'
 	or TrangThai like N'%'+@Tim +'%'
 	or SoLuong like N'%'+@Tim +'%'
-	or TenMH like N'%'+@Tim +'%'
-	or Gia like N'%'+@Tim +'%'
 end
 go
 --Lấy tất cả hóa đơn theo ngày--
@@ -790,6 +788,28 @@ begin
 	where NgayLHD<=@DateBack and NgayLHD>=@DateFront
 end 
 go
+--Lấy hàng hóa theo hạn sử dụng --
+----------------Đã hêt hạn--------
+create    proc Load_MatHang_HetHan
+	as 
+begin
+	select KHOHANG.MaMH,TrangThai,SoLuong 
+	from KHOHANG
+	join  MATHANG on MATHANG.MaMH=KHOHANG.MaMH
+	where MATHANG.HanSD<getdate()
+end 
+go
+----------------Chưa hêt hạn--------
+create  proc Load_MatHang_ChuaHetHSD
+	as 
+begin
+		select KHOHANG.MaMH,TrangThai,SoLuong 
+	from KHOHANG
+	join  MATHANG on MATHANG.MaMH=KHOHANG.MaMH
+	where MATHANG.HanSD>=getdate()
+end 
+go
+------------------------------------------------
 ------------------------------------------------
 create proc delete_all
 as

@@ -19,6 +19,17 @@ namespace QuanLySieuThiTienLoi.DAO
         }
 
         private string connectionSTR = @"Data Source=PCMINH;Initial Catalog=QuanLyCuaHangTienLoi;Persist Security Info=True;";
+        public void setAdmin(bool admin)
+        {
+            if (admin)
+            {
+                this.connectionSTR += "User ID=minhle;Password=101797";
+            }
+            else
+            {
+                this.connectionSTR += "User ID=minhle;Password=101797";
+            }
+        }
         public DataTable ExecuteQuery(string query,object[] parameters=null)
         {
             DataTable data = new DataTable();
@@ -112,17 +123,6 @@ namespace QuanLySieuThiTienLoi.DAO
                 conn.Close();
             }
             return data;
-        }
-        public void setAdmin(bool admin)
-        {
-            if (admin)
-            {
-                this.connectionSTR += "User ID=minhle;Password=101797";
-            }
-            else
-            {
-                this.connectionSTR += "User ID=minhle;Password=101797";
-            }
         }
     }
 }

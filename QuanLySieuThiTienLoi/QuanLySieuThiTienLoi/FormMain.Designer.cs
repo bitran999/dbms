@@ -32,15 +32,12 @@ namespace QuanLySieuThiTienLoi
             this.panel2 = new System.Windows.Forms.Panel();
             this.tbBillID = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.panel9 = new System.Windows.Forms.Panel();
             this.tbIdCustomer = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.tbCustomer = new System.Windows.Forms.TextBox();
             this.labelCustomer = new System.Windows.Forms.Label();
             this.btnSearchCustomer = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.tbID = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.tbEmail = new System.Windows.Forms.TextBox();
@@ -78,7 +75,6 @@ namespace QuanLySieuThiTienLoi
             this.labelTittle = new System.Windows.Forms.Label();
             this.dtNow = new System.Windows.Forms.DateTimePicker();
             this.panel2.SuspendLayout();
-            this.panel9.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -94,7 +90,6 @@ namespace QuanLySieuThiTienLoi
             // 
             this.panel2.Controls.Add(this.tbBillID);
             this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.panel9);
             this.panel2.Controls.Add(this.panel8);
             this.panel2.Controls.Add(this.panel7);
             this.panel2.Controls.Add(this.panel6);
@@ -126,40 +121,21 @@ namespace QuanLySieuThiTienLoi
             this.label5.Text = "Mã Hóa Đơn";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel9
-            // 
-            this.panel9.Controls.Add(this.tbIdCustomer);
-            this.panel9.Controls.Add(this.label4);
-            this.panel9.Location = new System.Drawing.Point(3, 16);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(389, 39);
-            this.panel9.TabIndex = 12;
-            // 
             // tbIdCustomer
             // 
             this.tbIdCustomer.Enabled = false;
             this.tbIdCustomer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbIdCustomer.Location = new System.Drawing.Point(159, 8);
+            this.tbIdCustomer.Location = new System.Drawing.Point(213, 3);
             this.tbIdCustomer.Name = "tbIdCustomer";
-            this.tbIdCustomer.Size = new System.Drawing.Size(217, 26);
+            this.tbIdCustomer.Size = new System.Drawing.Size(228, 26);
             this.tbIdCustomer.TabIndex = 1;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(20, 14);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(109, 17);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Mã Khách Hàng";
             // 
             // panel8
             // 
             this.panel8.Controls.Add(this.tbCustomer);
             this.panel8.Controls.Add(this.labelCustomer);
             this.panel8.Controls.Add(this.btnSearchCustomer);
-            this.panel8.Location = new System.Drawing.Point(3, 61);
+            this.panel8.Location = new System.Drawing.Point(9, 46);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(389, 42);
             this.panel8.TabIndex = 11;
@@ -195,21 +171,12 @@ namespace QuanLySieuThiTienLoi
             // 
             // panel7
             // 
-            this.panel7.Controls.Add(this.tbID);
+            this.panel7.Controls.Add(this.tbIdCustomer);
             this.panel7.Controls.Add(this.label3);
-            this.panel7.Location = new System.Drawing.Point(416, 24);
+            this.panel7.Location = new System.Drawing.Point(416, 19);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(467, 31);
+            this.panel7.Size = new System.Drawing.Size(467, 36);
             this.panel7.TabIndex = 10;
-            // 
-            // tbID
-            // 
-            this.tbID.Enabled = false;
-            this.tbID.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbID.Location = new System.Drawing.Point(213, 3);
-            this.tbID.Name = "tbID";
-            this.tbID.Size = new System.Drawing.Size(228, 23);
-            this.tbID.TabIndex = 1;
             // 
             // label3
             // 
@@ -579,8 +546,6 @@ namespace QuanLySieuThiTienLoi
             this.Text = "FormMain";
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel9.ResumeLayout(false);
-            this.panel9.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             this.panel7.ResumeLayout(false);
@@ -637,11 +602,8 @@ namespace QuanLySieuThiTienLoi
         private System.Windows.Forms.TextBox tbPhoneNb;
         private System.Windows.Forms.Button btnSearchCustomer;
         private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.TextBox tbID;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.TextBox tbIdCustomer;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Button btnPay;
         private System.Windows.Forms.ListView listView;
