@@ -123,7 +123,7 @@ as
 go
 --Cập nhật hàng nhà cung cấp--
 create proc Update_HoaDonNhanHang
-	@MaHDN nchar(10),
+	@MaHDN nchar(6),
 	@SoLuong int
 as
 	update HOADONNHANHANG
@@ -238,7 +238,7 @@ as
 go
 --Xóa hàng nhà cung cấp.--
 create proc Delete_HoaDonNhan
-	@MaHDN nchar(10)
+	@MaHDN nchar(6)
 as
 	delete from HOADONNHAN where MaHDN=@MaHDN
 go
@@ -470,8 +470,17 @@ begin
 	where KHOHANG.MaMH=MATHANG.MaMH 
 end
 go
-
-
+---Lấy ra lợi nhuận mỗi hóa đơn--
+create proc LoiNhuan_HoaDon
+	@MaHD varchar(5)
+as
+begin
+	select sum((Gia-GiaGoc)*SoLuong)as LoiNhuan
+	from MATHANG 
+	join CHITIETHOADON on CHITIETHOADON.MaMH=MATHANG.MaMH
+	where MaHD=@MaHD
+end
+go
 --Trigger--
 -- Cập nhật kho hàng khi có đơn hàng mới hoặc cập nhật --
 create   trigger Update_HangTrongKho_Insert_ChiTietHoaDon
@@ -528,13 +537,14 @@ begin
 end
 go
 --Cập nhật giá đơn nhận hàng --
-create trigger Update_HoaDonNhan
-on HOADONNHANHANG for insert,update,delete
+create  trigger Update_HoaDonNhan
+on HOADONNHANHANG for insert,update,delet
+e
 as
 begin 
 	update HOADONNHANHANG
 	set GiaTri =HOADONNHANHANG.SoLuong*
-	(select GiaTri from MATHANG where HOADONNHANHANG.MaMH=MATHANG.MaMH)
+	(select GiaGoc from MATHANG where HOADONNHANHANG.MaMH=MATHANG.MaMH)
 	from HOADONNHANHANG
 end
 go
@@ -697,6 +707,7 @@ BEGIN
 	RETURN @ID
 END
 go
+
 ---Tìm kiếm--
 --Tìm khách hàng--
 create proc Search_KhachHang
