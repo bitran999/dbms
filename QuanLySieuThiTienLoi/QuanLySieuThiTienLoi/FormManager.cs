@@ -36,8 +36,7 @@ namespace QuanLySieuThiTienLoi
         {
             dtgvEmployee.DataSource = EmployeeDAO.Instance.getEmployeeByFind(tbSearch.Text);
         }
-
-        private void btnAddEmp_Click(object sender, EventArgs e)
+        private Employee getEmployee()
         {
             Employee employee = new Employee();
             employee.Id = tbId.Text;
@@ -49,6 +48,11 @@ namespace QuanLySieuThiTienLoi
             employee.UserName = tbUser.Text;
             employee.PassWord = tbPass.Text;
             employee.IdTitle = tbIdTitle.Text;
+            return employee;
+        }
+        private void btnAddEmp_Click(object sender, EventArgs e)
+        {
+            Employee employee =getEmployee();
             if (EmployeeDAO.Instance.checkIdEmployee(employee.Id))
             {
                 MessageBox.Show("Mã nhân viên đã tồn tại, vui lòng nhập lại!");
@@ -85,16 +89,7 @@ namespace QuanLySieuThiTienLoi
 
         private void btnUpdateEmp_Click(object sender, EventArgs e)
         {
-            Employee employee = new Employee();
-            employee.Id = tbId.Text;
-            employee.Name = tbName.Text;
-            employee.Gender = tbGender.Text;
-            employee.Dob = tbDoB.Text;
-            employee.Address = tbAddress.Text;
-            employee.PhoneNb = tbPhoneNb.Text;
-            employee.UserName = tbUser.Text;
-            employee.PassWord = tbPass.Text;
-            employee.IdTitle = tbIdTitle.Text;
+            Employee employee = getEmployee();
             if (EmployeeDAO.Instance.checkUser(employee.UserName)) {
                 MessageBox.Show("Tên đăng nhập đã tồn tại!");
             }

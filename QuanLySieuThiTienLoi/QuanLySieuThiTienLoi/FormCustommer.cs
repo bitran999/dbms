@@ -18,7 +18,18 @@ namespace QuanLySieuThiTienLoi
         {
             InitializeComponent();
         }
-
+        private Customer getCustomer()
+        {
+            Customer customer = new Customer();
+            customer.Id = tbId.Text;
+            customer.Name = tbName.Text;
+            customer.Gender = tbGender.Text;
+            customer.Dob = dtDoB.Value.ToString("yyyy/M/dd");
+            customer.Address = tbAddress.Text;
+            customer.PhoneNb = tbPhoneNb.Text;
+            customer.Email = tbEmail.Text;
+            return customer;
+        }
         private void btnUpdateInfo_Click(object sender, EventArgs e)
         {
             Customer customer = new Customer();
@@ -68,28 +79,27 @@ namespace QuanLySieuThiTienLoi
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Customer customer = new Customer();
-            customer.Id = tbId.Text;
-            customer.Name = tbName.Text;
-            customer.Gender = tbGender.Text;
-            customer.Dob = dtDoB.Value.ToString("yyyy/M/dd");
-            customer.Address = tbAddress.Text;
-            customer.PhoneNb = tbPhoneNb.Text;
-            customer.Email = tbEmail.Text;
-            CustomerDAO.Instance.update(customer);
+            CustomerDAO.Instance.update(getCustomer());
             MessageBox.Show("Cập nhật thành công!");
         }
 
         private void tbSearch_Click(object sender, EventArgs e)
         {
             Customer customer = CustomerDAO.Instance.Search(tbId.Text);
-            tbId.Text = customer.Id;
-            tbGender.Text = customer.Gender;
-            dtDoB.Value = DateTime.Parse(customer.Dob);
-            tbAddress.Text = customer.Address;
-            tbName.Text = customer.Name;
-            tbPhoneNb.Text = customer.PhoneNb;
-            tbEmail.Text = customer.Email;
+            if (customer != null)
+            {
+                tbId.Text = customer.Id;
+                tbGender.Text = customer.Gender;
+                dtDoB.Value = DateTime.Parse(customer.Dob);
+                tbAddress.Text = customer.Address;
+                tbName.Text = customer.Name;
+                tbPhoneNb.Text = customer.PhoneNb;
+                tbEmail.Text = customer.Email;
+            }
+            else
+            {
+                MessageBox.Show("Không tìm thấy khách hàng");
+            }
         }
     }
 }
