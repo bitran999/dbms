@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLySieuThiTienLoi.DAO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,28 +17,51 @@ namespace QuanLySieuThiTienLoi
         {
             InitializeComponent();
         }
-
-        private void FormLogin_Load(object sender, EventArgs e)
-        {
-
-        }
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            FormMain f = new FormMain();
-            this.Hide();
-            f.ShowDialog();
-            this.Show();
+            string userName = tbUserName.Text;
+            string passWord = tbPassWord.Text;
+            bool admin = cbAdmin.Checked;
+            if (userName == "" || passWord == "")
+            {
+                MessageBox.Show("Vui lòng nhập tài khoản hoặc mật khẩu!");
+            }
+            else
+            {
+                if (Login(userName, passWord, admin))
+                {
+                    if (admin)
+                    {
+                        if (EmployeeDAO.Instance.checkAdmin())
+                        {
+                            FormMain f = new FormMain();
+                            this.Hide();
+                            f.ShowDialog();
+                            this.Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Bạn không có quyền Quản Lý!");
+                        }
+                    }
+                    else
+                    {
+                        FormMain f = new FormMain();
+                        this.Hide();
+                        f.ShowDialog();
+                        this.Show();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Sai tên đăng nhập hoặc mặt khẩu");
+                }
+            }
         }
-
+        bool Login(string userName, string passWord,bool admin)
+        {
+            return EmployeeDAO.Instance.Login(userName, passWord,admin);
+        }
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -48,6 +72,13 @@ namespace QuanLySieuThiTienLoi
             {
                 e.Cancel = true;
             }    
+        }
+        private void FormLogin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnLogin_Click(sender, e);
+            }
         }
     }
 }

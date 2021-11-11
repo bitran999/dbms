@@ -6,8 +6,9 @@ CREATE TABLE CHUCVU
 TenChucVu nvarchar(50) ,
 Luong float,
 CONSTRAINT CheckLuong CHECK(Luong > 5000000)
-
 );
+
+
 CREATE TABLE NHANVIEN
 ( MaNV nchar(10) PRIMARY KEY not null,
 TenNV nvarchar(50),
@@ -33,7 +34,7 @@ STK nchar(15)
 );
 
 create table KHACHHANG
-(MaKH nchar(10) PRIMARY KEY not null,
+(MaKH varchar(5) PRIMARY KEY CONSTRAINT IDKH DEFAULT dbo.AUTO_IDKH(),
 TenKH nvarchar(50),
 GioiTinh nchar(10),
 NgaySinh date,
@@ -46,20 +47,23 @@ Email nchar(30) UNIQUE
 create table KHOHANG
 (MaMH nchar(10) PRIMARY KEY not null,
 TrangThai nchar(10),
-SoLuong int,
+SoLuong int default 0,
 CONSTRAINT CheckSoLuong CHECK(SoLuong >=0)
 );
 
-create table HANGNHACUNGCAP
-(MaNCC nchar(10),
+create table HOADONNHANHANG
+(MaHDN varchar(6) CONSTRAINT IDHDN DEFAULT dbo.AUTO_IDHDN() UNIQUE,
+MaNCC nchar(10),
 MaMH nchar(10),
 SoLuong int,
+NgayGiao date,
+GiaTri float default 0,
 CONSTRAINT CheckSL CHECK(SoLuong >=0),
-PRIMARY KEY(MaNCC,MaMH),
-CONSTRAINT fk_HangNCC_NCC
-FOREIGN KEY(MaNCC) REFERENCES NHACUNGCAP(MaNCC) ON DELETE CASCADE, 
-CONSTRAINT fk_HangNCC_Kho
-FOREIGN KEY(MaMH) REFERENCES KHOHANG(MaMH)	ON DELETE CASCADE
+PRIMARY KEY(MaHDN,MaNCC,MaMH),
+CONSTRAINT fk_HoaDonNhan_NCC FOREIGN KEY(MaNCC)
+REFERENCES NHACUNGCAP(MaNCC) ON DELETE CASCADE, 
+CONSTRAINT fk_HoaDonNhan_Kho FOREIGN KEY(MaMH) 
+REFERENCES KHOHANG(MaMH)	ON DELETE CASCADE
 );
 
 
@@ -67,18 +71,19 @@ create table MATHANG
 (MaMH nchar(10) PRIMARY KEY not null,
 TenMH nvarchar(50),
 Gia float,
+GiaGoc float,
 NgaySX date,
 HanSD nchar(10),
-MaLoaiMH nchar(10),
 CONSTRAINT CheckGia CHECK(Gia >0),
+CONSTRAINT CheckGiaGoc check(GiaGoc>=0),
 CONSTRAINT fk_MatHang_Kho
 FOREIGN KEY(MaMH) REFERENCES KHOHANG(MaMH) ON DELETE CASCADE, 
 CONSTRAINT CheckDate CHECK(NgaySX<HanSD ));
 
 create table HOADON
-(MaHD nchar(10)	PRIMARY KEY not null,
+(MaHD varchar(5)PRIMARY KEY CONSTRAINT IDHD DEFAULT dbo.AUTO_IDHD(),
 NgayLHD date,
-MaKH nchar(10),
+MaKH varchar(5),
 MaNV nchar(10),
 GiaTri float default 0,
 CONSTRAINT fk_HoaDon_KhachHang
@@ -88,7 +93,7 @@ CONSTRAINT fk_HoaDon_NhanVien FOREIGN KEY (MaNV)
 REFERENCES NHANVIEN (MaNV) ON DELETE SET NULL, );
 
 create table CHITIETHOADON
-(MaHD nchar(10),
+(MaHD varchar(5),
 MaMH nchar(10),
 SoLuong int,
 GiaTriMH float default 0,
