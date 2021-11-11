@@ -21,17 +21,16 @@ namespace QuanLySieuThiTienLoi.DAO
         }
         public Customer Search(string data)
         {
-            Customer customer = new Customer();
             string query = "exec Search_KhachHang @Tim";
             DataTable dataTable = DataProvider.Instance.ExecuteQuery(query, new object[] {data });
-                customer.Id = dataTable.Rows[0]["MaKH"].ToString();
-                customer.Name = dataTable.Rows[0]["TenKH"].ToString();
-                customer.Gender = dataTable.Rows[0]["GioiTinh"].ToString();
-                customer.Dob = dataTable.Rows[0]["NgaySinh"].ToString();
-                customer.Address = dataTable.Rows[0]["DiaChi"].ToString();
-                customer.PhoneNb = dataTable.Rows[0]["SDT"].ToString();
-                customer.Email = dataTable.Rows[0]["Email"].ToString();
-                return customer;
+            if (dataTable.Rows.Count==0)
+            {
+                return null;
+            }
+            else
+            {
+                return new Customer(dataTable.Rows[0]); ;
+            }
         }
         public void add(Customer customer)
         {

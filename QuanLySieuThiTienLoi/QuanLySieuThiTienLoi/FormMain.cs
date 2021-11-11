@@ -67,10 +67,17 @@ namespace QuanLySieuThiTienLoi
         private void btnSearchCustomer_Click(object sender, EventArgs e)
         {
             Customer customer = CustomerDAO.Instance.Search(tbCustomer.Text);
-            tbCustomer.Text = customer.Id;
-            tbName.Text = customer.Name;
-            tbPhoneNb.Text = customer.PhoneNb;
-            tbEmail.Text = customer.Email;
+            if (customer == null)
+            {
+                MessageBox.Show("Không tìm thấy khash hàng, vui lòng thêm khách hàng mới");
+            }
+            else
+            {
+                tbIdCustomer.Text = customer.Id;
+                tbName.Text = customer.Name;
+                tbPhoneNb.Text = customer.PhoneNb;
+                tbEmail.Text = customer.Email;
+            }
         }
         private void loadListFoods()
         {
@@ -82,11 +89,6 @@ namespace QuanLySieuThiTienLoi
 
         private void btnAddGoods_Click(object sender, EventArgs e)
         {
-            loadList();
-        }
-        private void loadList()
-        {
-
             Foods food = cmbListFoods.SelectedItem as Foods;
             int count = (int)nmFoodsCount.Value;
             food.Count = count;
@@ -96,29 +98,36 @@ namespace QuanLySieuThiTienLoi
             countFood(tmp.ToString());
             if (count != 0)
             {
-                if (category.Count == 0)
+                if (count > category.Count)
                 {
-                    MessageBox.Show("Sản phẩm đã hết hàng");
+                    MessageBox.Show("Số lượng lớn hơn hàng trong kho");
                 }
                 else
                 {
-                    ListViewItem item = new ListViewItem();
-                    float sum = food.Count * food.Price;
-                    item.Text = food.Id;
-                    item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = food.Name });
-                    item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = (food.Price).ToString() });
-                    item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = food.Count.ToString() });
-                    item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = sum.ToString() });
-                    foreach (ListViewItem item1 in listView.Items)
+                    if (category.Count == 0)
                     {
-                        if (item1.Text == item.Text)
-                        {
-                            listView.Items.Remove(item1);
-                        }
+                        MessageBox.Show("Sản phẩm đã hết hàng");
                     }
-                    listView.Items.Add(item);
-                    tmp -= count;
-                    countFood(tmp.ToString());
+                    else
+                    {
+                        ListViewItem item = new ListViewItem();
+                        float sum = food.Count * food.Price;
+                        item.Text = food.Id;
+                        item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = food.Name });
+                        item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = (food.Price).ToString() });
+                        item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = food.Count.ToString() });
+                        item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = sum.ToString() });
+                        foreach (ListViewItem item1 in listView.Items)
+                        {
+                            if (item1.Text == item.Text)
+                            {
+                                listView.Items.Remove(item1);
+                            }
+                        }
+                        listView.Items.Add(item);
+                        tmp -= count;
+                        countFood(tmp.ToString());
+                    }
                 }
             }
             else
@@ -161,7 +170,7 @@ namespace QuanLySieuThiTienLoi
             float sum = 0;
             for (int i = 0; i < listView.Items.Count; i++)
             {
-                string a = listView.Items[0].SubItems[4].Text;
+                string a = listView.Items[i].SubItems[4].Text;
                 float b = float.Parse(a);
                 sum += b;
             }

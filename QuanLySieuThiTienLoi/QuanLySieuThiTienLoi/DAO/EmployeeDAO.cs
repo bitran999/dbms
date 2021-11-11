@@ -69,6 +69,10 @@ namespace QuanLySieuThiTienLoi.DAO
         {
             string query = "exec Load_ThongTinNV @MaNV";
             DataTable dataTable = DataProvider.Instance.ExecuteQuery(query, new object[] { id });
+            if (dataTable.Rows.Count == 0)
+            {
+                return null;
+            }
             DataRow dataRow = dataTable.Rows[0];
             Employee employee = new Employee(dataRow);
             return employee;

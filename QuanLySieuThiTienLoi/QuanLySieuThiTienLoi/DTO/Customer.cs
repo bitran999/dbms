@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,16 @@ namespace QuanLySieuThiTienLoi.DTO
         {
         }
 
+        public Customer(DataRow dataRow)
+        {
+            this.id = dataRow["MaKH"].ToString();
+            this.name = dataRow["TenKH"].ToString();
+            this.gender = dataRow["GioiTinh"].ToString();
+            this.dob = dataRow["NgaySinh"].ToString();
+            this.address = dataRow["DiaChi"].ToString();
+            this.phoneNb = dataRow["SDT"].ToString();
+            this.email = dataRow["Email"].ToString();
+        }
         public Customer(string id, string name, string gender, string dob, string address, string phoneNb, string email)
         {
             this.id = id;
