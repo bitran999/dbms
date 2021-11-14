@@ -1,8 +1,7 @@
+﻿--Tao login và user cho quản lý
 create login QLCHTLAdmin  with password='12345'
 create user manager for login QLCHTLAdmin
-create login QLCHTLNormal  with password='12345'
-create user staff for login QLCHTLNormal
-
+---Cấp cho quản lý đủ quyền lên các bảng----
 grant select,insert,update,delete on NHANVIEN to manager
 grant select,insert,update,delete on CHUCVU to manager
 grant select,insert,update,delete on HOADON to manager
@@ -12,14 +11,103 @@ grant select,insert,update,delete on KHOHANG to manager
 grant select,insert,update,delete on HOADONNHANHANG to manager
 grant select,insert,update,delete on KHACHHANG to manager
 grant select,insert,update,delete on NHACUNGCAP to manager
--------
+-------Cấp quyền cho sử dụng các proc----
+grant execute on dbo.Add_KhachHang to manager
+grant execute on dbo.Add_HoaDon to manager
+grant execute on dbo.Add_ChiTietHoaDon to manager
+grant execute on dbo.Add_ChucVu to manager
+grant execute on dbo.Add_HoaDonNhanHang to manager
+grant execute on dbo.Add_KhoHang to manager
+grant execute on dbo.Add_KhoHang_All to manager
+grant execute on dbo.Add_MatHang to manager
+grant execute on dbo.Add_NhaCungCap to manager
+grant execute on dbo.Add_NhanVien to manager
+grant execute on dbo.Update_ChiTietHoaDon to manager
+grant execute on dbo.Update_ChucVu to manager
+grant execute on dbo.Update_HoaDonNhanHang to manager
+grant execute on dbo.Update_HoaDon to manager
+grant execute on dbo.Update_KhachHang to manager
+grant execute on dbo.Update_MatHang to manager
+grant execute on dbo.Update_NhaCungCap to manager
+grant execute on dbo.Update_NhanVien_Admin to manager
+grant execute on dbo.Update_SoLuongMH to manager
+grant execute on dbo.Update_ThongTinNhanVien to manager
+grant execute on dbo.Delete_ChiTietHoaDon to manager
+grant execute on dbo.Delete_ChucVu to manager
+grant execute on dbo.Delete_HoaDonNhan to manager
+grant execute on dbo.Delete_HoaDon to manager
+grant execute on dbo.Delete_KhachHang to manager
+grant execute on dbo.Delete_KhoHang to manager
+grant execute on dbo.Delete_MatHang to manager
+grant execute on dbo.Delete_NhaCungCap to manager
+grant execute on dbo.Delete_NhanVien to manager
+grant execute on dbo.Load_ChiTietHoaDon to manager
+grant execute on dbo.Load_ChucVu to manager
+grant execute on dbo.Load_HoaDonNhan to manager
+grant execute on dbo.Load_HoaDon to manager
+grant execute on dbo.Load_KhachHang to manager
+grant execute on dbo.Load_KhoHang to manager
+grant execute on dbo.Load_MatHang to manager
+grant execute on dbo.Load_NhaCungCap to manager
+grant execute on dbo.Load_NhanVien to manager
+grant execute on dbo.Load_ThongTinNV to manager
+grant execute on dbo.info_HoaDon_KhachHang to manager
+grant execute on dbo.Load_Info_NhanVien to manager
+grant execute on dbo.info_HoaDon_MatHang to manager
+grant execute on dbo.info_AllTenMH to manager
+grant execute on dbo.Load_MatHang_MaMH to manager
+grant execute on dbo.info_HoaDon to manager
+grant execute on dbo.info_ChiTietHoaDon to manager
+grant execute on dbo.info_ChiTietHoaDon_FindOne to manager
+grant execute on dbo.LoiNhuan_HoaDon to manager
+grant execute on dbo.Check_UserName to manager
+grant execute on dbo.Check_PassWord to manager
+grant execute on dbo.Check_MaNV to manager
+grant execute on dbo.Change_PassWord to manager
+grant execute on dbo.Check_MatHang_Category to manager
+grant execute on dbo.Search_KhachHang to manager
+grant execute on dbo.Search_MatHang to manager
+grant execute on dbo.Search_MatHang_NCC to manager
+grant execute on dbo.Search_NhaCungCap to manager
+grant execute on dbo.Search_NhanVien to manager
+grant execute on dbo.NhanVien_DangNhap to manager
+grant execute on dbo.Search_KhoHang to manager
+grant execute on dbo.Load_Bill_Date to manager
+grant execute on dbo.Load_MatHang_HetHan to manager
+grant execute on dbo.Load_MatHang_ChuaHetHSD to manager
+grant execute on dbo.Load_NhaCungCap_MaNCC to manager
+grant execute on dbo.Check_NhaCC to manager
+-----Tạo login và user cho nhân viên-----
+create login QLCHTLNormal  with password='12345'
+create user staff for login QLCHTLNormal
+----Cấp các quyền cần thiết cho nhân viên----
 grant select,update on NHANVIEN to staff
 grant select on CHUCVU to staff
-grant insert on HOADON to staff
+grant select,insert on HOADON to staff
 grant insert on CHITIETHOADON to staff
 grant select on MATHANG to staff
 grant select on KHOHANG to staff
 grant select,insert,update on KHACHHANG to staff
-
-------------
-grant execute on dbo.
+------Cấp quyền cho nhân viên sử dụng các proc-----
+grant execute on dbo.Add_KhachHang to staff
+grant execute on dbo.Add_HoaDon to staff
+grant execute on dbo.Add_ChiTietHoaDon to staff
+grant execute on dbo.Update_KhachHang to staff
+grant execute on dbo.Update_ThongTinNhanVien to staff
+grant execute on dbo.Load_ChucVu to staff
+grant execute on dbo.Load_KhachHang to staff
+grant execute on dbo.Load_KhoHang to staff
+grant execute on dbo.Load_MatHang to staff
+grant execute on dbo.Load_NhanVien to staff
+grant execute on dbo.Load_ThongTinNV to staff
+grant execute on dbo.info_AllTenMH to staff
+grant execute on dbo.Load_MatHang_MaMH to staff
+grant execute on dbo.info_HoaDon to staff
+grant execute on dbo.Check_UserName to staff
+grant execute on dbo.Check_PassWord to staff
+grant execute on dbo.Change_PassWord to staff
+grant execute on dbo.Search_KhachHang to staff
+grant execute on dbo.Search_MatHang to staff
+grant execute on dbo.NhanVien_DangNhap to staff
+grant execute on dbo.Check_MatHang_Category to staff 
+grant execute on dbo.Check_Customer to staff
