@@ -22,11 +22,11 @@ namespace QuanLySieuThiTienLoi.DAO
         {
             if (admin)
             {
-                this.connectionSTR += "User ID=minhle;Password=101797";
+                this.connectionSTR += "User ID=QLCHTLAdmin;Password=12345";
             }
             else
             {
-                this.connectionSTR += "User ID=minhle;Password=101797";
+                this.connectionSTR += "User ID=QLCHTLNormal;Password=12345";
             }
         }
         public DataTable ExecuteQuery(string query,object[] parameters=null)

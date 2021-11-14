@@ -83,12 +83,12 @@ namespace QuanLySieuThiTienLoi.DAO
         }
         public void add(Foods foods)
         {
-            string query = "exec Add_MatHang @MaMH , @TenMH, @Gia , @GiaGoc , @NgaySX , @HanSD ";
+            string query = "exec Add_MatHang @MaMH , @TenMH , @Gia , @GiaGoc , @NgaySX , @HanSD ";
             DataProvider.Instance.ExecuteQuery(query, new object[] { foods.Id, foods.Name,foods.Price,foods.PriceHis,foods.ManuafatorDate,foods.OutDate });
         }
         public void update(Foods foods)
         {
-            string query = "exec Update_MatHang @MaMH , @TenMH, @Gia , @GiaGoc , @NgaySX , @HanSD ";
+            string query = "exec Update_MatHang @MaMH , @TenMH , @Gia , @GiaGoc , @NgaySX , @HanSD ";
             DataProvider.Instance.ExecuteQuery(query, new object[] { foods.Id, foods.Name, foods.Price, foods.PriceHis, foods.ManuafatorDate, foods.OutDate });
         }
         public void delete(string data)

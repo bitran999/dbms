@@ -58,6 +58,8 @@ namespace QuanLySieuThiTienLoi.DAO
             List<Employee> l = new List<Employee>();
             string query = "exec Load_Info_NhanVien";
             DataTable dataTable = DataProvider.Instance.ExecuteQuery(query);
+            if (dataTable == null)
+                return null;
             foreach (DataRow item in dataTable.Rows)
             {
                 Employee employee = new Employee(item);
@@ -133,7 +135,7 @@ namespace QuanLySieuThiTienLoi.DAO
         public void delete(string data)
         {
             string query = "exec Delete_NhanVien @MaNV";
-            DataTable dataTable = DataProvider.Instance.ExecuteQuery(query, new object[] { data });
+            DataProvider.Instance.ExecuteQuery(query, new object[] { data });
         }
     }
 }

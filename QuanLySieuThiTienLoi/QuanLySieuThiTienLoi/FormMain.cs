@@ -179,6 +179,12 @@ namespace QuanLySieuThiTienLoi
 
         private void btnPay_Click(object sender, EventArgs e)
         {
+            if (listView.Items.Count == 0)
+            {
+                MessageBox.Show("Chưa có mặt hàng nào");
+            }
+            else
+            {
                 BillDAO.Instance.create(tbIdCustomer.Text);
                 string idBill = BillDAO.Instance.getId();
                 for (int i = 0; i < listView.Items.Count; i++)
@@ -188,8 +194,9 @@ namespace QuanLySieuThiTienLoi
                     int count = int.Parse(countStr);
                     BillInfoDAO.Instance.add(idBill, idFood, count);
                 }
-            MessageBox.Show("Hoàn thành!");
-            reload();
+                MessageBox.Show("Hoàn thành!");
+                reload();
+            }
         }
         private void reload()
         {

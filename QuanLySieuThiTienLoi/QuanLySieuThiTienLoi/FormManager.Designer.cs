@@ -234,6 +234,35 @@ namespace QuanLySieuThiTienLoi
             this.label36 = new System.Windows.Forms.Label();
             this.panel43 = new System.Windows.Forms.Panel();
             this.dtgvTitle = new System.Windows.Forms.DataGridView();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dtgvCustomer = new System.Windows.Forms.DataGridView();
+            this.btnDeleteCus = new System.Windows.Forms.Button();
+            this.btnUpdateCus = new System.Windows.Forms.Button();
+            this.btnAddCus = new System.Windows.Forms.Button();
+            this.panel58 = new System.Windows.Forms.Panel();
+            this.label53 = new System.Windows.Forms.Label();
+            this.tbIdCus = new System.Windows.Forms.TextBox();
+            this.panel59 = new System.Windows.Forms.Panel();
+            this.tbNameCus = new System.Windows.Forms.TextBox();
+            this.label54 = new System.Windows.Forms.Label();
+            this.panel60 = new System.Windows.Forms.Panel();
+            this.tbGenderCus = new System.Windows.Forms.TextBox();
+            this.label55 = new System.Windows.Forms.Label();
+            this.panel61 = new System.Windows.Forms.Panel();
+            this.label56 = new System.Windows.Forms.Label();
+            this.panel62 = new System.Windows.Forms.Panel();
+            this.tbAddressCus = new System.Windows.Forms.TextBox();
+            this.label57 = new System.Windows.Forms.Label();
+            this.panel63 = new System.Windows.Forms.Panel();
+            this.tbPhoneCus = new System.Windows.Forms.TextBox();
+            this.label58 = new System.Windows.Forms.Label();
+            this.panel64 = new System.Windows.Forms.Panel();
+            this.tbEmailCus = new System.Windows.Forms.TextBox();
+            this.label59 = new System.Windows.Forms.Label();
+            this.panel65 = new System.Windows.Forms.Panel();
+            this.tbSearchCus = new System.Windows.Forms.TextBox();
+            this.btnSearchCus = new System.Windows.Forms.Button();
+            this.dtpDobCus = new System.Windows.Forms.DateTimePicker();
             this.tabControl.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -304,6 +333,16 @@ namespace QuanLySieuThiTienLoi
             this.panel44.SuspendLayout();
             this.panel43.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvTitle)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvCustomer)).BeginInit();
+            this.panel58.SuspendLayout();
+            this.panel59.SuspendLayout();
+            this.panel60.SuspendLayout();
+            this.panel61.SuspendLayout();
+            this.panel62.SuspendLayout();
+            this.panel63.SuspendLayout();
+            this.panel64.SuspendLayout();
+            this.panel65.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -313,6 +352,7 @@ namespace QuanLySieuThiTienLoi
             this.tabControl.Controls.Add(this.tabPage5);
             this.tabControl.Controls.Add(this.tabPageWareHouse);
             this.tabControl.Controls.Add(this.tabPage1);
+            this.tabControl.Controls.Add(this.tabPage3);
             this.tabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl.Location = new System.Drawing.Point(6, 17);
             this.tabControl.Name = "tabControl";
@@ -2228,6 +2268,270 @@ namespace QuanLySieuThiTienLoi
             this.dtgvTitle.TabIndex = 0;
             this.dtgvTitle.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvTitle_CellContentClick);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.panel65);
+            this.tabPage3.Controls.Add(this.panel64);
+            this.tabPage3.Controls.Add(this.panel63);
+            this.tabPage3.Controls.Add(this.panel62);
+            this.tabPage3.Controls.Add(this.panel61);
+            this.tabPage3.Controls.Add(this.panel60);
+            this.tabPage3.Controls.Add(this.panel59);
+            this.tabPage3.Controls.Add(this.panel58);
+            this.tabPage3.Controls.Add(this.btnAddCus);
+            this.tabPage3.Controls.Add(this.btnUpdateCus);
+            this.tabPage3.Controls.Add(this.btnDeleteCus);
+            this.tabPage3.Controls.Add(this.dtgvCustomer);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(938, 594);
+            this.tabPage3.TabIndex = 7;
+            this.tabPage3.Text = "Khách Hàng";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // dtgvCustomer
+            // 
+            this.dtgvCustomer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgvCustomer.Location = new System.Drawing.Point(6, 234);
+            this.dtgvCustomer.Name = "dtgvCustomer";
+            this.dtgvCustomer.Size = new System.Drawing.Size(926, 354);
+            this.dtgvCustomer.TabIndex = 0;
+            this.dtgvCustomer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvCustomer_CellContentClick);
+            // 
+            // btnDeleteCus
+            // 
+            this.btnDeleteCus.Location = new System.Drawing.Point(853, 174);
+            this.btnDeleteCus.Name = "btnDeleteCus";
+            this.btnDeleteCus.Size = new System.Drawing.Size(79, 35);
+            this.btnDeleteCus.TabIndex = 1;
+            this.btnDeleteCus.Text = "Xóa";
+            this.btnDeleteCus.UseVisualStyleBackColor = true;
+            this.btnDeleteCus.Click += new System.EventHandler(this.btnDeleteCus_Click);
+            // 
+            // btnUpdateCus
+            // 
+            this.btnUpdateCus.Location = new System.Drawing.Point(853, 112);
+            this.btnUpdateCus.Name = "btnUpdateCus";
+            this.btnUpdateCus.Size = new System.Drawing.Size(79, 35);
+            this.btnUpdateCus.TabIndex = 2;
+            this.btnUpdateCus.Text = "Sửa";
+            this.btnUpdateCus.UseVisualStyleBackColor = true;
+            this.btnUpdateCus.Click += new System.EventHandler(this.btnUpdateCus_Click);
+            // 
+            // btnAddCus
+            // 
+            this.btnAddCus.Location = new System.Drawing.Point(853, 55);
+            this.btnAddCus.Name = "btnAddCus";
+            this.btnAddCus.Size = new System.Drawing.Size(79, 35);
+            this.btnAddCus.TabIndex = 4;
+            this.btnAddCus.Text = "Thêm";
+            this.btnAddCus.UseVisualStyleBackColor = true;
+            this.btnAddCus.Click += new System.EventHandler(this.btnAddCus_Click);
+            // 
+            // panel58
+            // 
+            this.panel58.Controls.Add(this.tbIdCus);
+            this.panel58.Controls.Add(this.label53);
+            this.panel58.Location = new System.Drawing.Point(12, 20);
+            this.panel58.Name = "panel58";
+            this.panel58.Size = new System.Drawing.Size(388, 44);
+            this.panel58.TabIndex = 5;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(5, 14);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(109, 17);
+            this.label53.TabIndex = 0;
+            this.label53.Text = "Mã Khách Hàng";
+            // 
+            // tbIdCus
+            // 
+            this.tbIdCus.Location = new System.Drawing.Point(120, 11);
+            this.tbIdCus.Name = "tbIdCus";
+            this.tbIdCus.Size = new System.Drawing.Size(223, 23);
+            this.tbIdCus.TabIndex = 1;
+            // 
+            // panel59
+            // 
+            this.panel59.Controls.Add(this.tbNameCus);
+            this.panel59.Controls.Add(this.label54);
+            this.panel59.Location = new System.Drawing.Point(12, 78);
+            this.panel59.Name = "panel59";
+            this.panel59.Size = new System.Drawing.Size(388, 44);
+            this.panel59.TabIndex = 6;
+            // 
+            // tbNameCus
+            // 
+            this.tbNameCus.Location = new System.Drawing.Point(120, 11);
+            this.tbNameCus.Name = "tbNameCus";
+            this.tbNameCus.Size = new System.Drawing.Size(223, 23);
+            this.tbNameCus.TabIndex = 1;
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(3, 14);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(115, 17);
+            this.label54.TabIndex = 0;
+            this.label54.Text = "Tên Khách Hàng";
+            // 
+            // panel60
+            // 
+            this.panel60.Controls.Add(this.tbGenderCus);
+            this.panel60.Controls.Add(this.label55);
+            this.panel60.Location = new System.Drawing.Point(12, 128);
+            this.panel60.Name = "panel60";
+            this.panel60.Size = new System.Drawing.Size(388, 44);
+            this.panel60.TabIndex = 7;
+            // 
+            // tbGenderCus
+            // 
+            this.tbGenderCus.Location = new System.Drawing.Point(120, 11);
+            this.tbGenderCus.Name = "tbGenderCus";
+            this.tbGenderCus.Size = new System.Drawing.Size(223, 23);
+            this.tbGenderCus.TabIndex = 1;
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(3, 14);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(65, 17);
+            this.label55.TabIndex = 0;
+            this.label55.Text = "Giới Tính";
+            // 
+            // panel61
+            // 
+            this.panel61.Controls.Add(this.dtpDobCus);
+            this.panel61.Controls.Add(this.label56);
+            this.panel61.Location = new System.Drawing.Point(12, 178);
+            this.panel61.Name = "panel61";
+            this.panel61.Size = new System.Drawing.Size(388, 44);
+            this.panel61.TabIndex = 7;
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Location = new System.Drawing.Point(3, 14);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(73, 17);
+            this.label56.TabIndex = 0;
+            this.label56.Text = "Ngày Sinh";
+            // 
+            // panel62
+            // 
+            this.panel62.Controls.Add(this.tbAddressCus);
+            this.panel62.Controls.Add(this.label57);
+            this.panel62.Location = new System.Drawing.Point(435, 78);
+            this.panel62.Name = "panel62";
+            this.panel62.Size = new System.Drawing.Size(388, 44);
+            this.panel62.TabIndex = 8;
+            // 
+            // tbAddressCus
+            // 
+            this.tbAddressCus.Location = new System.Drawing.Point(120, 11);
+            this.tbAddressCus.Name = "tbAddressCus";
+            this.tbAddressCus.Size = new System.Drawing.Size(223, 23);
+            this.tbAddressCus.TabIndex = 1;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(5, 14);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(53, 17);
+            this.label57.TabIndex = 0;
+            this.label57.Text = "Địa Chỉ";
+            // 
+            // panel63
+            // 
+            this.panel63.Controls.Add(this.tbPhoneCus);
+            this.panel63.Controls.Add(this.label58);
+            this.panel63.Location = new System.Drawing.Point(435, 128);
+            this.panel63.Name = "panel63";
+            this.panel63.Size = new System.Drawing.Size(388, 44);
+            this.panel63.TabIndex = 9;
+            // 
+            // tbPhoneCus
+            // 
+            this.tbPhoneCus.Location = new System.Drawing.Point(120, 11);
+            this.tbPhoneCus.Name = "tbPhoneCus";
+            this.tbPhoneCus.Size = new System.Drawing.Size(223, 23);
+            this.tbPhoneCus.TabIndex = 1;
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(5, 14);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(36, 17);
+            this.label58.TabIndex = 0;
+            this.label58.Text = "SDT";
+            // 
+            // panel64
+            // 
+            this.panel64.Controls.Add(this.tbEmailCus);
+            this.panel64.Controls.Add(this.label59);
+            this.panel64.Location = new System.Drawing.Point(435, 178);
+            this.panel64.Name = "panel64";
+            this.panel64.Size = new System.Drawing.Size(388, 44);
+            this.panel64.TabIndex = 10;
+            // 
+            // tbEmailCus
+            // 
+            this.tbEmailCus.Location = new System.Drawing.Point(120, 11);
+            this.tbEmailCus.Name = "tbEmailCus";
+            this.tbEmailCus.Size = new System.Drawing.Size(223, 23);
+            this.tbEmailCus.TabIndex = 1;
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(5, 14);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(42, 17);
+            this.label59.TabIndex = 0;
+            this.label59.Text = "Email";
+            // 
+            // panel65
+            // 
+            this.panel65.Controls.Add(this.btnSearchCus);
+            this.panel65.Controls.Add(this.tbSearchCus);
+            this.panel65.Location = new System.Drawing.Point(435, 20);
+            this.panel65.Name = "panel65";
+            this.panel65.Size = new System.Drawing.Size(388, 44);
+            this.panel65.TabIndex = 11;
+            // 
+            // tbSearchCus
+            // 
+            this.tbSearchCus.Location = new System.Drawing.Point(8, 8);
+            this.tbSearchCus.Name = "tbSearchCus";
+            this.tbSearchCus.Size = new System.Drawing.Size(223, 23);
+            this.tbSearchCus.TabIndex = 1;
+            // 
+            // btnSearchCus
+            // 
+            this.btnSearchCus.Location = new System.Drawing.Point(277, 3);
+            this.btnSearchCus.Name = "btnSearchCus";
+            this.btnSearchCus.Size = new System.Drawing.Size(79, 35);
+            this.btnSearchCus.TabIndex = 5;
+            this.btnSearchCus.Text = "Tìm";
+            this.btnSearchCus.UseVisualStyleBackColor = true;
+            this.btnSearchCus.Click += new System.EventHandler(this.btnSearchCus_Click);
+            // 
+            // dtpDobCus
+            // 
+            this.dtpDobCus.CustomFormat = "dd/M/yyyy";
+            this.dtpDobCus.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpDobCus.Location = new System.Drawing.Point(155, 11);
+            this.dtpDobCus.Name = "dtpDobCus";
+            this.dtpDobCus.Size = new System.Drawing.Size(132, 23);
+            this.dtpDobCus.TabIndex = 1;
+            // 
             // FormManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2351,6 +2655,24 @@ namespace QuanLySieuThiTienLoi
             this.panel44.PerformLayout();
             this.panel43.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgvTitle)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvCustomer)).EndInit();
+            this.panel58.ResumeLayout(false);
+            this.panel58.PerformLayout();
+            this.panel59.ResumeLayout(false);
+            this.panel59.PerformLayout();
+            this.panel60.ResumeLayout(false);
+            this.panel60.PerformLayout();
+            this.panel61.ResumeLayout(false);
+            this.panel61.PerformLayout();
+            this.panel62.ResumeLayout(false);
+            this.panel62.PerformLayout();
+            this.panel63.ResumeLayout(false);
+            this.panel63.PerformLayout();
+            this.panel64.ResumeLayout(false);
+            this.panel64.PerformLayout();
+            this.panel65.ResumeLayout(false);
+            this.panel65.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2562,5 +2884,34 @@ namespace QuanLySieuThiTienLoi
         private System.Windows.Forms.DateTimePicker dtpMF;
         private System.Windows.Forms.Button btnUpdateFoods;
         private System.Windows.Forms.Button btnAddFood;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DataGridView dtgvCustomer;
+        private System.Windows.Forms.Panel panel65;
+        private System.Windows.Forms.Button btnSearchCus;
+        private System.Windows.Forms.TextBox tbSearchCus;
+        private System.Windows.Forms.Panel panel64;
+        private System.Windows.Forms.TextBox tbEmailCus;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.Panel panel63;
+        private System.Windows.Forms.TextBox tbPhoneCus;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.Panel panel62;
+        private System.Windows.Forms.TextBox tbAddressCus;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.Panel panel61;
+        private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.Panel panel60;
+        private System.Windows.Forms.TextBox tbGenderCus;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.Panel panel59;
+        private System.Windows.Forms.TextBox tbNameCus;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.Panel panel58;
+        private System.Windows.Forms.TextBox tbIdCus;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.Button btnAddCus;
+        private System.Windows.Forms.Button btnUpdateCus;
+        private System.Windows.Forms.Button btnDeleteCus;
+        private System.Windows.Forms.DateTimePicker dtpDobCus;
     }
 }

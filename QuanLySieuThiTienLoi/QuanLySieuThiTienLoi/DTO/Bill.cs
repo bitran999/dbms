@@ -34,7 +34,14 @@ namespace QuanLySieuThiTienLoi.DTO
             this.date = dataRow["NgayLHD"].ToString();
             this.idCustomer = dataRow["MaKH"].ToString();
             this.idEmp = dataRow["MaNV"].ToString();
-            this.price = (float)Convert.ToDouble(dataRow["GiaTri"].ToString());
+            if (dataRow["GiaTri"] == null)
+            {
+                this.price = 0;
+            }
+            else
+            {
+                this.price = (float)Convert.ToDouble(dataRow["GiaTri"].ToString());
+            }
         }
         public string Id { get => id; set => id = value; }
         public string Date { get => date; set => date = value; }

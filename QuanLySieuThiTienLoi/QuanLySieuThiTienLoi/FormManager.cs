@@ -24,6 +24,7 @@ namespace QuanLySieuThiTienLoi
             loadTitle();
             loadListSupplier();
             loadListFoodWarehouse();
+            loadCustomer();
         }
         /*-------------------------Menu-----------------------------*/
         /*-------------------------Nhân Viên-----------------------------*/
@@ -147,6 +148,7 @@ namespace QuanLySieuThiTienLoi
                 tbIdBill.Text = dtgvBill.Rows[e.RowIndex].Cells[0].Value.ToString();
                 tbIdBill.Enabled = false;
                 LoadListBillInfo();
+                LoadBill();
             }
         }
         public void LoadListBillInfo()
@@ -549,6 +551,16 @@ namespace QuanLySieuThiTienLoi
             }
             tbWHSave.Text = category.Count.ToString();
         }
+        private void loadWH()
+        {
+            tbIdFoodWH.Text = "";
+            tbNameFood.Text = "";
+            tbPriceFoodWH.Text = "";
+            tbPriceHisWH.Text = "";
+            dtpMF.Value = DateTime.Now;
+            dtpOF.Value = DateTime.Now;
+            tbWHSave.Text = "";
+        }
         private void dtgvWareHouse_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -557,7 +569,7 @@ namespace QuanLySieuThiTienLoi
                 category.Id = dtgvWareHouse.Rows[e.RowIndex].Cells[0].Value.ToString();
                 category.Status = dtgvWareHouse.Rows[e.RowIndex].Cells[1].Value.ToString();
                 category.Count = Convert.ToInt32(dtgvWareHouse.Rows[e.RowIndex].Cells[2].Value.ToString());
-                tbIdBill.Enabled = false;
+                loadWH();
                 loadCategory(category);
             }
         }
@@ -656,6 +668,81 @@ namespace QuanLySieuThiTienLoi
         private void btnFilterOF_Click(object sender, EventArgs e)
         {
             dtgvWareHouse.DataSource= CategoryDAO.Instance.listOF();
+        }
+        /*-----------------------------Khách Hàng----------------------------------*/
+        private void loadCustomer()
+        {
+            dtgvCustomer.DataSource = CustomerDAO.Instance.getListCustomer();
+        }
+        private void loadCustomer(Customer customer)
+        {
+            tbIdCus.Text = customer.Id;
+            tbNameCus.Text = customer.Name;
+            tbGenderCus.Text = customer.Gender;
+            tbAddressCus.Text = customer.Address;
+            tbPhoneCus.Text = customer.PhoneNb;
+            dtpDobCus.Value =Convert.ToDateTime(customer.Dob);
+            tbEmailCus.Text = customer.Email;
+        }
+        private void dtgvCustomer_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (e.RowIndex >= 0)
+            {
+                Customer customer = new Customer();
+                customer.Id = dtgvCustomer.Rows[e.RowIndex].Cells[0].Value.ToString();
+                customer.Name = dtgvCustomer.Rows[e.RowIndex].Cells[1].Value.ToString();
+                customer.Gender = dtgvCustomer.Rows[e.RowIndex].Cells[2].Value.ToString();
+                customer.Dob = dtgvCustomer.Rows[e.RowIndex].Cells[3].Value.ToString();
+                customer.Address = dtgvCustomer.Rows[e.RowIndex].Cells[4].Value.ToString();
+                customer.PhoneNb = dtgvCustomer.Rows[e.RowIndex].Cells[5].Value.ToString();
+                customer.Email = dtgvCustomer.Rows[e.RowIndex].Cells[6].Value.ToString();
+                loadCustomer(customer);
+            }
+        }
+        private Customer getCustomer()
+        {
+            Customer customer = new Customer();
+            customer.Id = tbIdCus.Text;
+            customer.Name = tbNameCus.Text;
+            customer.Gender = tbGenderCus.Text;
+            customer.Address = tbAddressCus.Text;
+            customer.PhoneNb = tbPhoneCus.Text;
+            customer.Email = tbEmailCus.Text;
+            customer.Dob = dtpDobCus.Value.ToString("yyyy/M/dd");
+            return customer;
+        }
+        private void btnSearchCus_Click(object sender, EventArgs e)
+        {
+            dtgvCustomer.DataSource = CustomerDAO.Instance.search(tbSearchCus.Text);
+        }
+
+        private void btnUpdateCus_Click(object sender, EventArgs e)
+        {
+
+            CustomerDAO.Instance.update(getCustomer());
+            MessageBox.Show("Sửa thành công");
+            loadCustomer();
+        }
+
+        private void btnAddCus_Click(object sender, EventArgs e)
+        {
+            if (CustomerDAO.Instance.check(getCustomer())) 
+            {
+                MessageBox.Show("Số điện thoại hoặc email đã có");
+            }
+            else
+            {
+                CustomerDAO.Instance.add(getCustomer());
+                MessageBox.Show("Thêm thành công");
+            }
+            loadCustomer();
+        }
+
+        private void btnDeleteCus_Click(object sender, EventArgs e)
+        {
+            CustomerDAO.Instance.delete(tbIdCus.Text);
+            loadCustomer();
         }
     }
 }

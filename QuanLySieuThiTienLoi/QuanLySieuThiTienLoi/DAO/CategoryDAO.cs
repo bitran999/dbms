@@ -46,18 +46,18 @@ namespace QuanLySieuThiTienLoi.DAO
             string query = "";
             if (category.Count == 0)
             {
-                query = "exec  Add_KhoHang @MaMH";
+                query = "exec  Add_KhoHang @MaMH ";
                 DataProvider.Instance.ExecuteQuery(query,new object[] { category.Id});
             }
             else
             {
-                query = "exec  Add_KhoHang_All @MaMH , @SoLuong";
+                query = "exec  Add_KhoHang_All @MaMH , @SoLuong ";
                 DataProvider.Instance.ExecuteQuery(query, new object[] { category.Id,category.Count });
             }
         }
         public void update(Category category)
         {
-            string query = "exec  Update_SoLuongMH @MaMH , @SoLuong";
+            string query = "exec  Update_SoLuongMH @MaMH , @SoLuong ";
             DataProvider.Instance.ExecuteQuery(query, new object[] { category.Id, category.Count });
         }
         public void delete(string data)
@@ -68,7 +68,7 @@ namespace QuanLySieuThiTienLoi.DAO
         public List<Category> search(string data)
         {
             List<Category> l = new List<Category>();
-            string query = "exec  Search_KhoHang @Tim";
+            string query = "exec  Search_KhoHang @Tim ";
             DataTable dataTable = DataProvider.Instance.ExecuteQuery(query,new object[] { data});
             foreach (DataRow item in dataTable.Rows)
             {

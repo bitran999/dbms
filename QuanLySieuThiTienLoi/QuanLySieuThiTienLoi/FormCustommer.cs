@@ -79,8 +79,8 @@ namespace QuanLySieuThiTienLoi
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CustomerDAO.Instance.update(getCustomer());
-            MessageBox.Show("Cập nhật thành công!");
+                CustomerDAO.Instance.update(getCustomer());
+                MessageBox.Show("Sửa thành công");
         }
 
         private void tbSearch_Click(object sender, EventArgs e)

@@ -59,6 +59,8 @@ namespace QuanLySieuThiTienLoi.DAO
             List<Bill> l = new List<Bill>();
             string query = "exec Load_HoaDon";
             DataTable dataTable = DataProvider.Instance.ExecuteQuery(query);
+            if (dataTable == null)
+                return null;
             foreach (DataRow item in dataTable.Rows)
             {
                 Bill bill = new Bill(item);
