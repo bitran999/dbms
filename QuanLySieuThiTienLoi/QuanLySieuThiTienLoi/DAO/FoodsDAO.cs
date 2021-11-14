@@ -96,6 +96,10 @@ namespace QuanLySieuThiTienLoi.DAO
             string query = "exec Delete_MatHang @MaMH  ";
             DataProvider.Instance.ExecuteQuery(query, new object[] { data });
         }
-    
+        public bool check(string id)
+        {
+            string query = "exec Load_MatHang_MaMH @MaMH ";
+            return DataProvider.Instance.ExecuteQuery(query, new object[] { id }).Rows.Count>0;
+        }
     }
 }

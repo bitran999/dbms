@@ -79,7 +79,7 @@ namespace QuanLySieuThiTienLoi.DAO
         }
         public bool checkFoodInCategory(string id)
         {
-            string query = "select * from KHOHANG where MaMH=@MaMH";
+            string query = "exec Check_MatHang_Category @MaMH ";
              return DataProvider.Instance.ExecuteQuery(query, new object[] { id }).Rows.Count>0;
         }
         public List<Category> listOF()

@@ -570,15 +570,23 @@ namespace QuanLySieuThiTienLoi
 
         private void btnAddFood_Click_1(object sender, EventArgs e)
         {
-            if(CategoryDAO.Instance.checkFoodInCategory(tbIdFoodWH.Text))
+            if (FoodsDAO.Instance.check(tbIdFoodWH.Text))
             {
-                FoodsDAO.Instance.add(getFoods());
-                MessageBox.Show("Thêm thành công");
+                MessageBox.Show("Mã mặt hàng đã tồn tại");
             }
             else
             {
-                MessageBox.Show("Cần thêm mặt hàng vào kho trước khi thêm vào danh sách mặt hàng");
+                if (CategoryDAO.Instance.checkFoodInCategory(tbIdFoodWH.Text))
+                {
+                    FoodsDAO.Instance.add(getFoods());
+                    MessageBox.Show("Thêm thành công");
+                }
+                else
+                {
+                    MessageBox.Show("Cần thêm mặt hàng vào kho trước khi thêm vào danh sách mặt hàng");
+                }
             }
+
             loadListFoodWarehouse();
         }
 
