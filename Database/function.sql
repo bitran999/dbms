@@ -537,12 +537,12 @@ begin
 end
 go
 -- Cập nhật kho hàng khi xóa hóa đơn nhận hàng --
-create  trigger Update_HangTrongKho_Delete_HoaDonNhan
+create trigger Update_HangTrongKho_Delete_HoaDonNhan
 on HOADONNHANHANG for delete 
 as 
 begin
 	update KHOHANG
-	set SoLuong=KHOHANG.SoLuong+(
+	set SoLuong=KHOHANG.SoLuong-(
 		select SoLuong
 		from deleted
 		where deleted.MaMH=KHOHANG.MaMH
@@ -550,6 +550,7 @@ begin
 	from KHOHANG
 	join deleted on KHOHANG.MaMH=deleted.MaMH
 end
+go
 -- Cập nhật kho hàng khi có hàng mới nhận --
 create  trigger Update_HangTrongKho_Insert_HoaDonNhan
 on HOADONNHANHANG for insert 
@@ -564,13 +565,14 @@ begin
 	from KHOHANG
 	join inserted on KHOHANG.MaMH=inserted.MaMH
 end
+go
 -- Cập nhật hàng trong kho sau khi cập nhật hóa đơn nhận hàng--
 create  trigger Update_HangTrongKho_Update_HoaDonNhan
 on HOADONNHANHANG after update 
 as
 begin 
 	update KHOHANG
-	set KHOHANG.SoLuong=KHOHANG.SoLuong- i.SoLuong+d.SoLuong
+	set KHOHANG.SoLuong=KHOHANG.SoLuong+i.SoLuong-d.SoLuong
 	from KHOHANG
 	inner join inserted as i on KHOHANG.MaMH=i.MaMH
 	inner join deleted as d on i.MaMH=d.MaMH
