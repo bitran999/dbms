@@ -413,6 +413,7 @@ namespace QuanLySieuThiTienLoi
         private void btnAddSup_Click(object sender, EventArgs e)
         {
             SupplierDAO.Instance.add(getSup());
+            MessageBox.Show("Thêm thành công");
             loadListSupplier();
         }
         private Supplier getSup()
@@ -432,37 +433,52 @@ namespace QuanLySieuThiTienLoi
             supBill.IdSup = tbIdSup2.Text;
             supBill.IdFood = tbIdFoodSup.Text;
             supBill.Count = Convert.ToInt32(tbCountSup.Text);
-            supBill.Date = dtSupBill.Value.ToString("yyyy/M/dd"); ;
-            supBill.Value = (float)Convert.ToDouble(tbValueSup.Text);
+            supBill.Date = dtSupBill.Value.ToString("yyyy/M/dd");
+            if (tbValueSup.Text == "")
+            {
+                supBill.Value = 0;
+            }
+            else
+            {
+                supBill.Value = (float)Convert.ToDouble(tbValueSup.Text);
+            }
             return supBill;
         }
         private void btnUpdateSup_Click(object sender, EventArgs e)
         {
             SupplierDAO.Instance.update(getSup());
+            MessageBox.Show("Sửa thành công");
             loadListSupplier();
         }
 
         private void btnDeleteSup_Click(object sender, EventArgs e)
         {
             SupplierDAO.Instance.delete(tbIdSup.Text);
+            MessageBox.Show("Xóa thành công");
             loadListSupplier();
         }
 
         private void btnAddSupBill_Click(object sender, EventArgs e)
         {
-            SupBillDAO.Instance.add(getSupBill());
+            SupBill supBill = getSupBill();
+            supBill.Date = DateTime.Now.ToString("yyyy/M/dd");
+            SupBillDAO.Instance.add(supBill);
+            MessageBox.Show("Thêm thành công!");
+            loadListFoodWarehouse();
         }
 
         private void btnUpdateSupBill_Click(object sender, EventArgs e)
         {
             SupBillDAO.Instance.update(getSupBill());
             MessageBox.Show("Sửa thành công!");
+            loadListFoodWarehouse();
         }
 
         private void btnDeleteSupBill_Click(object sender, EventArgs e)
         {
-            SupBillDAO.Instance.delete(tbIdSup2.Text);
+            SupBillDAO.Instance.delete(tbSupBill.Text);
             MessageBox.Show("Xóa thành công!");
+            loadListFoodWarehouse();
         }
 
         private void cbIdFood_SelectedIndexChanged(object sender, EventArgs e)
@@ -599,8 +615,15 @@ namespace QuanLySieuThiTienLoi
 
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
-            CategoryDAO.Instance.add(getCategory());
-            MessageBox.Show("Thêm thành công");
+            if (CategoryDAO.Instance.checkFoodInCategory(tbIdFoodWH.Text))
+            {
+                MessageBox.Show("Mặt hàng đã có trong kho");
+            }
+            else
+            {
+                CategoryDAO.Instance.add(getCategory());
+                MessageBox.Show("Thêm thành công");
+            }
             loadListFoodWarehouse();
         }
 

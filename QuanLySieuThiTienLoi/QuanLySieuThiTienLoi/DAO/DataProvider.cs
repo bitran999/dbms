@@ -17,7 +17,6 @@ namespace QuanLySieuThiTienLoi.DAO
             get { if (instance == null) instance = new DataProvider(); return DataProvider.instance; }
             private set{DataProvider.instance = value; }
         }
-
         private string connectionSTR = @"Data Source=PCMINH;Initial Catalog=QuanLyCuaHangTienLoi;Persist Security Info=True;";
         public void setAdmin(bool admin)
         {
@@ -65,39 +64,36 @@ namespace QuanLySieuThiTienLoi.DAO
                 return null;
             }
         }
-        public int ExecuteNonQuery(string query, object[] parameters = null)
+        public bool ExecuteNonQuery(string query, object[] parameters = null)
         {
-            int data = 0;
-            SqlConnection conn = new SqlConnection(connectionSTR);
-            try
+          try
             {
-                conn.Open();
-                SqlCommand command = new SqlCommand(query, conn);
-                if (parameters != null)
+                using (SqlConnection conn = new SqlConnection(connectionSTR))
                 {
-                    string[] listPara = query.Split(' ');
-                    int i = 0;
-                    foreach (string item in listPara)
+                    conn.Open();
+                    SqlCommand command = new SqlCommand(query, conn);
+                    if (parameters != null)
                     {
-                        if (item.Contains('@'))
+                        string[] listPara = query.Split(' ');
+                        int i = 0;
+                        foreach (string item in listPara)
                         {
-                            command.Parameters.AddWithValue(item, parameters[i]);
-                            i++;
+                            if (item.Contains('@'))
+                            {
+                                command.Parameters.AddWithValue(item, parameters[i]);
+                                i++;
+                            }
                         }
                     }
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
                 }
-                data = command.ExecuteNonQuery();
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+                return true;
             }
             catch(Exception e)
             {
                 Console.WriteLine(e);
             }
-            finally
-            {
-                conn.Close();
-            }
-            return data;
+            return false;
         }
         public object ExecuteScalar(string query, object[] parameters = null)
         {

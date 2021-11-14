@@ -34,17 +34,16 @@ namespace QuanLySieuThiTienLoi.DAO
         public void add(SupBill supBill)
         {
             string query = "exec Add_HoaDonNhanHang @MaNCC , @MaMH , @NgayGiao , @SoLuong";
-            DataTable dataTable = DataProvider.Instance.ExecuteQuery(query, new object[] { supBill.IdSup, supBill.IdFood,supBill.Date,supBill.Count});
+            DataProvider.Instance.ExecuteQuery(query, new object[] { supBill.IdSup, supBill.IdFood,supBill.Date,supBill.Count});
         }
         public void update(SupBill supBill)
         {
             string query = "exec Update_HoaDonNhanHang @MaHDN , @SoLuong";
-            DataTable dataTable = DataProvider.Instance.ExecuteQuery(query, new object[] { supBill.Id, supBill.Count });
-        }
+            DataProvider.Instance.ExecuteQuery(query, new object[] { supBill.Id, supBill.Count });        }
         public void delete(string data)
         {
-            string query = "exec Delete_HoaDonNhan @MaHDN";
-            DataTable dataTable = DataProvider.Instance.ExecuteQuery(query, new object[] { data});
+            string query = "exec Delete_HoaDonNhan @MaHDN ";
+            DataProvider.Instance.ExecuteQuery(query, new object[] { data});
         }
         public List<SupBill> searchIdFoods(string id)
         {
