@@ -436,7 +436,12 @@ begin
 	where MaHD=@MaHD and MaMH=@MaMH
 end
 go
-
+--Lấy nhà cung cấp theo mã nhà cung cấp--
+create proc Load_NhaCungCap_MaNCC
+	@MaNCC nchar(10)
+as
+	select * from NHACUNGCAP where MaNCC=@MaNCC
+go
 ---Lấy ra lợi nhuận mỗi hóa đơn--
 create proc LoiNhuan_HoaDon
 	@MaHD varchar(5)
@@ -648,6 +653,16 @@ begin
 	select TrangThai,SoLuong
 	from KHOHANG
 	where MaMH=@MaMH
+end
+go
+--Kiểm tra xem đã có số điện thoại hay số tài khoản nhà cung cấp--
+create proc Check_NhaCC
+	(@SDT nchar(10),@STK nvarchar(15))
+as
+begin 
+	select *
+	from NHACUNGCAP
+	where SDT=@SDT or STK=@STK
 end
 go
 --Hàm tạo mã khách hàng tự động----
