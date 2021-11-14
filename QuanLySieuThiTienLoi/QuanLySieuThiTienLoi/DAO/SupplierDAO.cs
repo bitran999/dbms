@@ -33,7 +33,7 @@ namespace QuanLySieuThiTienLoi.DAO
         }
         public Supplier getSupplierById(string data)
         {
-            string query = "exec info_HoaDon @MaHD";
+            string query = "exec Load_NhaCungCap_MaNCC @MaNCC";
             DataTable dataTable = DataProvider.Instance.ExecuteQuery(query, new object[] { data });
             if (dataTable.Rows.Count > 0)
             {
@@ -69,6 +69,11 @@ namespace QuanLySieuThiTienLoi.DAO
         {
             string query = "exec Delete_NhaCungCap @MaNCC  ";
             DataProvider.Instance.ExecuteQuery(query, new object[] {data });
+        }
+        public bool check(Supplier supplier)
+        {
+            string query = "exec Check_NhaCC @SDT , @STK  ";
+            return  DataProvider.Instance.ExecuteQuery(query, new object[] { supplier.Contract,supplier.BankId }).Rows.Count>0;
         }
     }
 }

@@ -390,7 +390,7 @@ namespace QuanLySieuThiTienLoi
                 supBill.Count = (int)Convert.ToInt32(dtgvSupBill.Rows[e.RowIndex].Cells[3].Value.ToString());
                 supBill.Date = dtgvSupBill.Rows[e.RowIndex].Cells[4].Value.ToString();
                 supBill.Value = (float)Convert.ToDouble(dtgvSupBill.Rows[e.RowIndex].Cells[5].Value.ToString());
-                tbId.Text = dtgvSupBill.Rows[e.RowIndex].Cells[0].Value.ToString();
+                tbIdBill.Text = dtgvSupBill.Rows[e.RowIndex].Cells[0].Value.ToString();
                 tbIdBill.Enabled = false;
                 loadSupBill(supBill);
             }
@@ -410,12 +410,7 @@ namespace QuanLySieuThiTienLoi
             dtgvSup.DataSource = SupplierDAO.Instance.getList(tbIdSup.Text);
         }
 
-        private void btnAddSup_Click(object sender, EventArgs e)
-        {
-            SupplierDAO.Instance.add(getSup());
-            MessageBox.Show("Thêm thành công");
-            loadListSupplier();
-        }
+      
         private Supplier getSup()
         {
             Supplier supplier = new Supplier();
@@ -443,6 +438,25 @@ namespace QuanLySieuThiTienLoi
                 supBill.Value = (float)Convert.ToDouble(tbValueSup.Text);
             }
             return supBill;
+        }
+        private void btnAddSup_Click(object sender, EventArgs e)
+        {
+            if (SupplierDAO.Instance.getSupplierById(getSup().Id) != null){
+                MessageBox.Show("Mã nhà cung cấp đã tồn tại");
+            }
+            else
+            {
+                if (SupplierDAO.Instance.check(getSup()))
+                {
+                    MessageBox.Show("Số điện thoại hoặc tài khoản ngân hàng đã tồn tại");
+                }
+                else
+                {
+                    SupplierDAO.Instance.add(getSup());
+                    MessageBox.Show("Thêm thành công");
+                    loadListSupplier();
+                }
+            }
         }
         private void btnUpdateSup_Click(object sender, EventArgs e)
         {
