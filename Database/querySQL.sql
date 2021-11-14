@@ -30,7 +30,7 @@ create table NHACUNGCAP
 TenNCC nvarchar(50),
 DiaChi nvarchar(50),
 SDT nchar(10) UNIQUE,
-STK nchar(15)
+STK nchar(15) UNIQUE
 );
 
 create table KHACHHANG
