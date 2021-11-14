@@ -65,6 +65,7 @@ grant execute on dbo.Check_PassWord to manager
 grant execute on dbo.Check_MaNV to manager
 grant execute on dbo.Change_PassWord to manager
 grant execute on dbo.Check_MatHang_Category to manager
+grant execute on dbo.Check_Customer to manager
 grant execute on dbo.Search_KhachHang to manager
 grant execute on dbo.Search_MatHang to manager
 grant execute on dbo.Search_MatHang_NCC to manager

@@ -521,15 +521,15 @@ begin
 end
 go
 --Cập nhật tổng giá trị  hóa đơn  --
-create trigger Update_GiaTri_HoaDon
+create  trigger Update_GiaTri_HoaDon
 on CHITIETHOADON for insert,update,delete
 as
 begin 
 	update HOADON
 	set GiaTri =(select sum(GiaTriMH) from CHITIETHOADON
 	where HOADON.MaHD=CHITIETHOADON.MaHD
-	group by MaHD )
-	from HOADON
+	group by CHITIETHOADON.MaHD )
+	from HOADON	
 end
 go
 --Cập nhật trạng thái hàng hóa trong kho--
