@@ -30,14 +30,12 @@ namespace QuanLySieuThiTienLoi
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
-            this.tbBillID = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tbIdCustomer = new System.Windows.Forms.TextBox();
             this.panel8 = new System.Windows.Forms.Panel();
             this.tbCustomer = new System.Windows.Forms.TextBox();
             this.labelCustomer = new System.Windows.Forms.Label();
             this.btnSearchCustomer = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.tbIdCustomer = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.tbEmail = new System.Windows.Forms.TextBox();
@@ -88,10 +86,9 @@ namespace QuanLySieuThiTienLoi
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.tbBillID);
-            this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.panel8);
             this.panel2.Controls.Add(this.panel7);
+            this.panel2.Controls.Add(this.btnSearchCustomer);
             this.panel2.Controls.Add(this.panel6);
             this.panel2.Controls.Add(this.panel5);
             this.panel2.Controls.Add(this.panel3);
@@ -101,40 +98,10 @@ namespace QuanLySieuThiTienLoi
             this.panel2.Size = new System.Drawing.Size(883, 159);
             this.panel2.TabIndex = 2;
             // 
-            // tbBillID
-            // 
-            this.tbBillID.Enabled = false;
-            this.tbBillID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbBillID.Location = new System.Drawing.Point(99, 121);
-            this.tbBillID.Name = "tbBillID";
-            this.tbBillID.Size = new System.Drawing.Size(125, 26);
-            this.tbBillID.TabIndex = 14;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(6, 125);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(87, 17);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Mã Hóa Đơn";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tbIdCustomer
-            // 
-            this.tbIdCustomer.Enabled = false;
-            this.tbIdCustomer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbIdCustomer.Location = new System.Drawing.Point(213, 3);
-            this.tbIdCustomer.Name = "tbIdCustomer";
-            this.tbIdCustomer.Size = new System.Drawing.Size(228, 26);
-            this.tbIdCustomer.TabIndex = 1;
-            // 
             // panel8
             // 
             this.panel8.Controls.Add(this.tbCustomer);
             this.panel8.Controls.Add(this.labelCustomer);
-            this.panel8.Controls.Add(this.btnSearchCustomer);
             this.panel8.Location = new System.Drawing.Point(9, 46);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(389, 42);
@@ -145,7 +112,7 @@ namespace QuanLySieuThiTienLoi
             this.tbCustomer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbCustomer.Location = new System.Drawing.Point(159, 10);
             this.tbCustomer.Name = "tbCustomer";
-            this.tbCustomer.Size = new System.Drawing.Size(125, 26);
+            this.tbCustomer.Size = new System.Drawing.Size(215, 26);
             this.tbCustomer.TabIndex = 1;
             // 
             // labelCustomer
@@ -161,7 +128,7 @@ namespace QuanLySieuThiTienLoi
             // btnSearchCustomer
             // 
             this.btnSearchCustomer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearchCustomer.Location = new System.Drawing.Point(311, 6);
+            this.btnSearchCustomer.Location = new System.Drawing.Point(33, 109);
             this.btnSearchCustomer.Name = "btnSearchCustomer";
             this.btnSearchCustomer.Size = new System.Drawing.Size(65, 30);
             this.btnSearchCustomer.TabIndex = 5;
@@ -177,6 +144,15 @@ namespace QuanLySieuThiTienLoi
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(467, 36);
             this.panel7.TabIndex = 10;
+            // 
+            // tbIdCustomer
+            // 
+            this.tbIdCustomer.Enabled = false;
+            this.tbIdCustomer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbIdCustomer.Location = new System.Drawing.Point(213, 3);
+            this.tbIdCustomer.Name = "tbIdCustomer";
+            this.tbIdCustomer.Size = new System.Drawing.Size(228, 26);
+            this.tbIdCustomer.TabIndex = 1;
             // 
             // label3
             // 
@@ -275,7 +251,7 @@ namespace QuanLySieuThiTienLoi
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(244, 120);
+            this.button1.Location = new System.Drawing.Point(220, 109);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(148, 30);
             this.button1.TabIndex = 2;
@@ -545,7 +521,6 @@ namespace QuanLySieuThiTienLoi
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormMain";
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             this.panel7.ResumeLayout(false);
@@ -611,8 +586,6 @@ namespace QuanLySieuThiTienLoi
         private System.Windows.Forms.ColumnHeader name;
         private System.Windows.Forms.ColumnHeader price;
         private System.Windows.Forms.ColumnHeader count;
-        private System.Windows.Forms.TextBox tbBillID;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbCountFood;
         private System.Windows.Forms.ColumnHeader total;
     }

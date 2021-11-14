@@ -33,28 +33,37 @@ namespace QuanLySieuThiTienLoi.DAO
         public DataTable ExecuteQuery(string query,object[] parameters=null)
         {
             DataTable data = new DataTable();
-            using(SqlConnection conn = new SqlConnection(connectionSTR))
+            try
             {
-                conn.Open();
-                SqlCommand command = new SqlCommand(query, conn);
-                if (parameters != null)
+                using (SqlConnection conn = new SqlConnection(connectionSTR))
                 {
-                    string[] listPara = query.Split(' ');
-                    int i = 0;
-                    foreach(string item in listPara)
+                    conn.Open();
+                    SqlCommand command = new SqlCommand(query, conn);
+                    if (parameters != null)
                     {
-                        if (item.Contains('@'))
+                        string[] listPara = query.Split(' ');
+                        int i = 0;
+                        foreach (string item in listPara)
                         {
-                            command.Parameters.AddWithValue(item, parameters[i]);
-                            i++;
+                            if (item.Contains('@'))
+                            {
+                                command.Parameters.AddWithValue(item, parameters[i]);
+                                i++;
+                            }
                         }
                     }
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+                    sqlDataAdapter.Fill(data);
+                    conn.Close();
                 }
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
-                sqlDataAdapter.Fill(data);
-                conn.Close();
+                return data;
             }
-            return data;
+            catch(Exception e)
+            {
+                Console.WriteLine("Lỗi");
+                Console.WriteLine(e.Message);
+                return null;
+            }
         }
         public int ExecuteNonQuery(string query, object[] parameters = null)
         {

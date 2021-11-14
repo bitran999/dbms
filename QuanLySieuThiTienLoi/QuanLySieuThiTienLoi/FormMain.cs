@@ -193,10 +193,7 @@ namespace QuanLySieuThiTienLoi
         }
         private void reload()
         {
-            for (int i = 0; i < listView.Items.Count; i++)
-            {
-                listView.Items.RemoveAt(i);
-            }
+            listView.Items.Clear();
         }
     }
 }

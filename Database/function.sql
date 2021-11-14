@@ -328,7 +328,7 @@ select * from KHOHANG
 go
 
 --Load dữ liệu mặt hàng.--
-create alter proc Load_MatHang
+create  proc Load_MatHang
 as
 select * from MATHANG
 go
@@ -506,8 +506,7 @@ end
 go
 --Cập nhật giá đơn nhận hàng --
 create  trigger Update_HoaDonNhan
-on HOADONNHANHANG for insert,update,delet
-e
+on HOADONNHANHANG for insert,update,delete
 as
 begin 
 	update HOADONNHANHANG

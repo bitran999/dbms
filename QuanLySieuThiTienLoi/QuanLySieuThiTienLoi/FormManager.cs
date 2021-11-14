@@ -513,7 +513,7 @@ namespace QuanLySieuThiTienLoi
                 }
                 else
                 {
-                    tbStatus.Text = "Còn hết hạn sử dụng";
+                    tbStatus.Text = "Còn  hạn sử dụng";
                     tbStatus.BackColor = Color.White;
                 }
             }
