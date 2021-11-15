@@ -310,7 +310,7 @@ go
 
 --Load dữ liệu hóa đơn.--
 
-create proc Load_HoaDon
+create   proc Load_HoaDon
 as
 select * from HOADON
 go

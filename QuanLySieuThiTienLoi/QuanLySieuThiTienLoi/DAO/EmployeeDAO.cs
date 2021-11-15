@@ -31,6 +31,8 @@ namespace QuanLySieuThiTienLoi.DAO
             string query = "exec NhanVien_DangNhap @UserName , @PassWord";
             DataProvider.Instance.setAdmin(admin);
             DataTable dataTable = DataProvider.Instance.ExecuteQuery(query, new object[] { userName, passWord });
+            if (dataTable== null)
+                return false;
             if (dataTable.Rows.Count > 0)
             {
                 id = dataTable.Rows[0]["MaNV"].ToString();

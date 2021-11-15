@@ -108,7 +108,14 @@ namespace QuanLySieuThiTienLoi.DAO
             string query = "exec LoiNhuan_HoaDon @MaHD";
             for(int i = 0; i < l.Count; i++)
             {
-               rs+=(float)Convert.ToDouble(DataProvider.Instance.ExecuteQuery(query, new object[] { l[i] }).Rows[0]["LoiNhuan"].ToString());
+                if (DataProvider.Instance.ExecuteQuery(query, new object[] { l[i] }).Rows[0]["LoiNhuan"].ToString() == null)
+                {
+                    rs += 0;
+                }
+                else
+                {
+                    rs += (float)Convert.ToDouble(DataProvider.Instance.ExecuteQuery(query, new object[] { l[i] }).Rows[0]["LoiNhuan"].ToString() == null);
+                }
             }
             return rs;
         }

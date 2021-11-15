@@ -268,6 +268,7 @@ namespace QuanLySieuThiTienLoi
         {
             BillInfoDAO.Instance.add(tbIdBillInfo.Text, tbIdFood.Text, int.Parse(tbCount.Text));
             MessageBox.Show("Thêm thành công!");
+            LoadListBill();
         }
 
         private void loadListFoods()
@@ -295,12 +296,14 @@ namespace QuanLySieuThiTienLoi
         {
             BillInfoDAO.Instance.update(tbIdBill.Text, tbIdFood.Text, int.Parse(tbCount.Text));
             MessageBox.Show("Sửa thành công!");
+            LoadListBill();
         }
 
         private void btnDeleteBillInfo_Click(object sender, EventArgs e)
         {
             BillInfoDAO.Instance.delete(tbIdBill.Text, tbIdFood.Text);
             MessageBox.Show("Xóa thành công!");
+            LoadListBill();
         }
 
 

@@ -64,7 +64,7 @@ namespace QuanLySieuThiTienLoi.DAO
                 return null;
             }
         }
-        public bool ExecuteNonQuery(string query, object[] parameters = null)
+        /*public bool ExecuteNonQuery(string query, object[] parameters = null)
         {
           try
             {
@@ -128,6 +128,6 @@ namespace QuanLySieuThiTienLoi.DAO
                 conn.Close();
             }
             return data;
-        }
+        }*/
     }
 }
