@@ -33,7 +33,7 @@ namespace QuanLySieuThiTienLoi.DTO
             this.id = dataRow["MaHD"].ToString();
             this.date = dataRow["NgayLHD"].ToString();
          
-            if (dataRow["MaKH"] == null)
+            if (dataRow["MaKH"].ToString() == null)
             {
                 this.idCustomer = "";
             }
@@ -41,7 +41,7 @@ namespace QuanLySieuThiTienLoi.DTO
             {
                 this.idCustomer = dataRow["MaKH"].ToString();
             }
-            if (dataRow["MaNV"] == null)
+            if (dataRow["MaNV"].ToString() == null)
             {
                 this.idEmp = "";
             }
@@ -49,13 +49,13 @@ namespace QuanLySieuThiTienLoi.DTO
             {
                 this.idEmp = dataRow["MaNV"].ToString();
             }
-            if (dataRow["GiaTri"] == null)
-            {
-                this.price = 0;
-            }
-            else
+            try
             {
                 this.price = (float)Convert.ToDouble(dataRow["GiaTri"].ToString());
+            }
+            catch
+            {
+                this.price = 0;
             }
         }
         public string Id { get => id; set => id = value; }

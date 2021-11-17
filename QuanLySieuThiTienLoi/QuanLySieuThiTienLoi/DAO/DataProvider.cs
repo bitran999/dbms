@@ -64,39 +64,6 @@ namespace QuanLySieuThiTienLoi.DAO
                 return null;
             }
         }
-        public bool ExecuteNonQuery(string query, object[] parameters = null)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionSTR))
-                {
-                    conn.Open();
-                    SqlCommand command = new SqlCommand(query, conn);
-                    if (parameters != null)
-                    {
-                        string[] listPara = query.Split(' ');
-                        int i = 0;
-                        foreach (string item in listPara)
-                        {
-                            if (item.Contains('@'))
-                            {
-                                command.Parameters.AddWithValue(item, parameters[i]);
-                                i++;
-                            }
-                        }
-                    }
-                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
-                    conn.Close();
-                }
-                return true;
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine("Lỗi");
-                Console.WriteLine(e.Message);
-                return false;
-            }
-        }
        
     }
 }

@@ -413,7 +413,14 @@ namespace QuanLySieuThiTienLoi
             {
                 SupBill supBill = new SupBill();
                 supBill.Id = dtgvSupBill.Rows[e.RowIndex].Cells[0].Value.ToString();
-                supBill.IdSup = dtgvSupBill.Rows[e.RowIndex].Cells[1].Value.ToString();
+                if (dtgvSupBill.Rows[e.RowIndex].Cells[1].Value == null)
+                {
+                    supBill.IdSup = "";
+                }
+                else
+                {
+                    supBill.IdSup = dtgvSupBill.Rows[e.RowIndex].Cells[1].Value.ToString();
+                }
                 supBill.IdFood = dtgvSupBill.Rows[e.RowIndex].Cells[2].Value.ToString();
                 supBill.Count = (int)Convert.ToInt32(dtgvSupBill.Rows[e.RowIndex].Cells[3].Value.ToString());
                 supBill.Date = dtgvSupBill.Rows[e.RowIndex].Cells[4].Value.ToString();
@@ -483,6 +490,7 @@ namespace QuanLySieuThiTienLoi
                     SupplierDAO.Instance.add(getSup());
                     MessageBox.Show("Thêm thành công");
                     loadListSupplier();
+                    loadListSupBill();
                 }
             }
         }
@@ -491,6 +499,7 @@ namespace QuanLySieuThiTienLoi
             SupplierDAO.Instance.update(getSup());
             MessageBox.Show("Sửa thành công");
             loadListSupplier();
+            loadListSupBill();
         }
 
         private void btnDeleteSup_Click(object sender, EventArgs e)
@@ -498,6 +507,7 @@ namespace QuanLySieuThiTienLoi
             SupplierDAO.Instance.delete(tbIdSup.Text);
             MessageBox.Show("Xóa thành công");
             loadListSupplier();
+            loadListSupBill();
         }
 
         private void btnAddSupBill_Click(object sender, EventArgs e)

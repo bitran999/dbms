@@ -30,7 +30,14 @@ namespace QuanLySieuThiTienLoi.DTO
                 this.idBill = dataRow["MaHD"].ToString();
                 this.idFood = dataRow["MaMH"].ToString();
                 this.count =(int)Convert.ToInt32(dataRow["SoLuong"].ToString());
-                this.value = (float)Convert.ToDouble(dataRow["GiaTriMH"].ToString());
+            try {
+                this.value = (float)Convert.ToDouble(dataRow["GiaTriMH"].ToString()); 
+            }
+            catch
+            {
+                this.value = 0;
+            }
+                
         }
 
         public string IdBill { get => idBill; set => idBill = value; }
