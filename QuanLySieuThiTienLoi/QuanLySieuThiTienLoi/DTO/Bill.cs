@@ -32,8 +32,23 @@ namespace QuanLySieuThiTienLoi.DTO
         {
             this.id = dataRow["MaHD"].ToString();
             this.date = dataRow["NgayLHD"].ToString();
-            this.idCustomer = dataRow["MaKH"].ToString();
-            this.idEmp = dataRow["MaNV"].ToString();
+         
+            if (dataRow["MaKH"] == null)
+            {
+                this.idCustomer = "";
+            }
+            else
+            {
+                this.idCustomer = dataRow["MaKH"].ToString();
+            }
+            if (dataRow["MaNV"] == null)
+            {
+                this.idEmp = "";
+            }
+            else
+            {
+                this.idEmp = dataRow["MaNV"].ToString();
+            }
             if (dataRow["GiaTri"] == null)
             {
                 this.price = 0;

@@ -43,7 +43,7 @@ namespace QuanLySieuThiTienLoi
             employee.Id = tbId.Text;
             employee.Name = tbName.Text;
             employee.Gender = tbGender.Text;
-            employee.Dob = tbDoB.Text;
+            employee.Dob = dtpDob.Value.ToString("yyyy/M/dd") ;
             employee.Address = tbAddress.Text;
             employee.PhoneNb = tbPhoneNb.Text;
             employee.UserName = tbUser.Text;
@@ -67,7 +67,7 @@ namespace QuanLySieuThiTienLoi
                 else
                 {
                     EmployeeDAO.Instance.add(employee);
-                    MessageBox.Show("Cập nhật thành công!");
+                    MessageBox.Show("Thêm thành công!");
                 }
             }
             LoadListEmployee();
@@ -87,16 +87,39 @@ namespace QuanLySieuThiTienLoi
             EmployeeDAO.Instance.delete(tbId.Text);
             LoadListEmployee();
         }
-
+        private bool checkUserName(string id, string user)
+        {
+            for(int i = 0; i < dtgvEmployee.Rows.Count; i++)
+            {
+                if (dtgvEmployee.Rows[i].Cells[5].Value.ToString() == user)
+                {
+                    if (dtgvEmployee.Rows[i].Cells[0].Value.ToString() == id)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         private void btnUpdateEmp_Click(object sender, EventArgs e)
         {
             Employee employee = getEmployee();
-            if (EmployeeDAO.Instance.checkUser(employee.UserName)) {
-                MessageBox.Show("Tên đăng nhập đã tồn tại!");
-            }
-            else {
+            if (checkUserName(employee.Id, employee.UserName))
+            {
                 EmployeeDAO.Instance.updateAdmin(employee);
                 MessageBox.Show("Cập nhật thành công!");
+            }
+            else
+            {
+                if (EmployeeDAO.Instance.checkUser(employee.UserName))
+                {
+                    MessageBox.Show("Tên đăng nhập đã tồn tại!");
+                }
+                else
+                {
+                    EmployeeDAO.Instance.updateAdmin(employee);
+                    MessageBox.Show("Cập nhật thành công!");
+                }
             }
             LoadInfoEmployee();
             LoadListEmployee();
@@ -107,7 +130,7 @@ namespace QuanLySieuThiTienLoi
             tbId.Text = employee.Id;
             tbName.Text = employee.Name;
             tbGender.Text = employee.Gender;
-            tbDoB.Text = employee.Dob;
+            dtpDob.Value = Convert.ToDateTime(employee.Dob);
             tbAddress.Text = employee.Address;
             tbPhoneNb.Text = employee.PhoneNb;
             tbUser.Text = employee.UserName;
@@ -120,7 +143,7 @@ namespace QuanLySieuThiTienLoi
             tbId.Text = "";
             tbName.Text = "";
             tbGender.Text = "";
-            tbDoB.Text = "";
+            dtpDob.Value = DateTime.Now;
             tbAddress.Text = "";
             tbPhoneNb.Text = "";
             tbUser.Text = "";

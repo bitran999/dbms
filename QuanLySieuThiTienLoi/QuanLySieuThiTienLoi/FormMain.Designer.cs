@@ -33,10 +33,10 @@ namespace QuanLySieuThiTienLoi
             this.panel8 = new System.Windows.Forms.Panel();
             this.tbCustomer = new System.Windows.Forms.TextBox();
             this.labelCustomer = new System.Windows.Forms.Label();
-            this.btnSearchCustomer = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
             this.tbIdCustomer = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnSearchCustomer = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
             this.tbEmail = new System.Windows.Forms.TextBox();
             this.labelEmailCustomer = new System.Windows.Forms.Label();
@@ -125,17 +125,6 @@ namespace QuanLySieuThiTienLoi
             this.labelCustomer.TabIndex = 0;
             this.labelCustomer.Text = "Tìm Kiếm Khách Hàng";
             // 
-            // btnSearchCustomer
-            // 
-            this.btnSearchCustomer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearchCustomer.Location = new System.Drawing.Point(33, 109);
-            this.btnSearchCustomer.Name = "btnSearchCustomer";
-            this.btnSearchCustomer.Size = new System.Drawing.Size(65, 30);
-            this.btnSearchCustomer.TabIndex = 5;
-            this.btnSearchCustomer.Text = "Tìm";
-            this.btnSearchCustomer.UseVisualStyleBackColor = true;
-            this.btnSearchCustomer.Click += new System.EventHandler(this.btnSearchCustomer_Click);
-            // 
             // panel7
             // 
             this.panel7.Controls.Add(this.tbIdCustomer);
@@ -163,6 +152,17 @@ namespace QuanLySieuThiTienLoi
             this.label3.Size = new System.Drawing.Size(109, 17);
             this.label3.TabIndex = 0;
             this.label3.Text = "Mã Khách Hàng";
+            // 
+            // btnSearchCustomer
+            // 
+            this.btnSearchCustomer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchCustomer.Location = new System.Drawing.Point(33, 109);
+            this.btnSearchCustomer.Name = "btnSearchCustomer";
+            this.btnSearchCustomer.Size = new System.Drawing.Size(65, 30);
+            this.btnSearchCustomer.TabIndex = 5;
+            this.btnSearchCustomer.Text = "Tìm";
+            this.btnSearchCustomer.UseVisualStyleBackColor = true;
+            this.btnSearchCustomer.Click += new System.EventHandler(this.btnSearchCustomer_Click);
             // 
             // panel6
             // 
@@ -348,6 +348,7 @@ namespace QuanLySieuThiTienLoi
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Hủy";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // label1
             // 

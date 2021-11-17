@@ -109,8 +109,8 @@ namespace QuanLySieuThiTienLoi.DAO
         }
         public bool checkUser(string data)
         {
-            string query = "exec Check_UserName  @User ";
-            return DataProvider.Instance.ExecuteQuery(query, new object[] {data}).Rows.Count > 0;
+            string query = "exec Check_UserName   @User ";
+            return DataProvider.Instance.ExecuteQuery(query, new object[]  {data}).Rows.Count > 0;
         }
         public bool checkIdEmployee(string data)
         {

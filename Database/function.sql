@@ -599,7 +599,7 @@ begin
 end
 go
 */
---Kiểm tra khi thay đổi Username--
+--Kiểm tra khi thêm Username--
 create proc Check_UserName
 	@Users nchar(10)
 as
@@ -609,6 +609,7 @@ begin
 	where Users=@Users
 end
 go
+
 --Kiểm tra xem mật khẩu mới có khác mật khẩu cũ--
 create proc Check_PassWord(@MaNV nchar(10),@Pass nvarchar(10))
 as

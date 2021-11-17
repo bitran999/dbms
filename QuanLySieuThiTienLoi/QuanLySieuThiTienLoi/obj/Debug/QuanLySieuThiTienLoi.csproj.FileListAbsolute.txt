@@ -1,7 +1,6 @@
 D:\DATA\DBMS\dbms\QuanLySieuThiTienLoi\QuanLySieuThiTienLoi\bin\Debug\QuanLySieuThiTienLoi.exe.config
 D:\DATA\DBMS\dbms\QuanLySieuThiTienLoi\QuanLySieuThiTienLoi\bin\Debug\QuanLySieuThiTienLoi.exe
 D:\DATA\DBMS\dbms\QuanLySieuThiTienLoi\QuanLySieuThiTienLoi\bin\Debug\QuanLySieuThiTienLoi.pdb
-D:\DATA\DBMS\dbms\QuanLySieuThiTienLoi\QuanLySieuThiTienLoi\obj\Debug\QuanLySieuThiTienLoi.csprojAssemblyReference.cache
 D:\DATA\DBMS\dbms\QuanLySieuThiTienLoi\QuanLySieuThiTienLoi\obj\Debug\QuanLySieuThiTienLoi.FormChangePassWord.resources
 D:\DATA\DBMS\dbms\QuanLySieuThiTienLoi\QuanLySieuThiTienLoi\obj\Debug\QuanLySieuThiTienLoi.FormCustommer.resources
 D:\DATA\DBMS\dbms\QuanLySieuThiTienLoi\QuanLySieuThiTienLoi\obj\Debug\QuanLySieuThiTienLoi.FormInfoAccout.resources
@@ -13,3 +12,4 @@ D:\DATA\DBMS\dbms\QuanLySieuThiTienLoi\QuanLySieuThiTienLoi\obj\Debug\QuanLySieu
 D:\DATA\DBMS\dbms\QuanLySieuThiTienLoi\QuanLySieuThiTienLoi\obj\Debug\QuanLySieuThiTienLoi.csproj.CoreCompileInputs.cache
 D:\DATA\DBMS\dbms\QuanLySieuThiTienLoi\QuanLySieuThiTienLoi\obj\Debug\QuanLySieuThiTienLoi.exe
 D:\DATA\DBMS\dbms\QuanLySieuThiTienLoi\QuanLySieuThiTienLoi\obj\Debug\QuanLySieuThiTienLoi.pdb
+D:\DATA\DBMS\dbms\QuanLySieuThiTienLoi\QuanLySieuThiTienLoi\obj\Debug\QuanLySieuThiTienLoi.csprojAssemblyReference.cache

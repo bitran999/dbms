@@ -202,5 +202,10 @@ namespace QuanLySieuThiTienLoi
         {
             listView.Items.Clear();
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            reload();
+        }
     }
 }

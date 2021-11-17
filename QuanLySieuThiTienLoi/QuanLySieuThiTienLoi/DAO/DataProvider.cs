@@ -64,9 +64,9 @@ namespace QuanLySieuThiTienLoi.DAO
                 return null;
             }
         }
-        /*public bool ExecuteNonQuery(string query, object[] parameters = null)
+        public bool ExecuteNonQuery(string query, object[] parameters = null)
         {
-          try
+            try
             {
                 using (SqlConnection conn = new SqlConnection(connectionSTR))
                 {
@@ -86,48 +86,17 @@ namespace QuanLySieuThiTienLoi.DAO
                         }
                     }
                     SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+                    conn.Close();
                 }
                 return true;
             }
             catch(Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine("Lỗi");
+                Console.WriteLine(e.Message);
+                return false;
             }
-            return false;
         }
-        public object ExecuteScalar(string query, object[] parameters = null)
-        {
-            object data = 0;
-            SqlConnection conn = new SqlConnection(connectionSTR);
-            try
-            {
-                conn.Open();
-                SqlCommand command = new SqlCommand(query, conn);
-                if (parameters != null)
-                {
-                    string[] listPara = query.Split(' ');
-                    int i = 0;
-                    foreach (string item in listPara)
-                    {
-                        if (item.Contains('@'))
-                        {
-                            command.Parameters.AddWithValue(item, parameters[i]);
-                            i++;
-                        }
-                    }
-                }
-                data = command.ExecuteScalar();
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return data;
-        }*/
+       
     }
 }
