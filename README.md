@@ -1,8 +1,10 @@
 Đồ án môn Hệ Quản Trị Cơ Sở Dữ Liệu.
 
-Nhóm 13:
-Nguyễn Khánh Duy 18110260
-Lê Văn Minh 16110389
-Trần Quang Tỉnh 18110380
+Đề tài: Phầm mềm quản lý siêu thị tiện lợi.
+Yêu cầu:
+- Thiết kế database.
+- Thiết kế phầm mềm bằng kết nối với db.
+Công nghệ: Winform, C#, SQL.
+Công cụ: SQl Server 2018, Visual Studio 2019.
 
 Link ERD: https://drive.google.com/file/d/1nkQVNe74J2VJVaSBzSHFCDTrycJTIXoO/view?usp=sharing
