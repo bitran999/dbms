@@ -352,6 +352,8 @@ namespace QuanLySieuThiTienLoi
         private void btnDeleteTitle_Click(object sender, EventArgs e)
         {
             TitleDAO.Instance.delete(tbIdTitleM.Text);
+            loadTitle();
+            MessageBox.Show("Xóa thành công");
         }
 
         private void btnUpdateTitle_Click(object sender, EventArgs e)
@@ -361,6 +363,8 @@ namespace QuanLySieuThiTienLoi
             title.Name = tbTitle.Text;
             title.Salary = (float)Convert.ToDouble(tbSalary.Text);
             TitleDAO.Instance.update(title);
+            loadTitle();
+            MessageBox.Show("Sửa thành công");
         }
 
         private void btnAddTitle_Click(object sender, EventArgs e)
@@ -370,6 +374,8 @@ namespace QuanLySieuThiTienLoi
             title.Name = tbTitle.Text;
             title.Salary = (float)Convert.ToDouble(tbSalary.Text);
             TitleDAO.Instance.add(title);
+            loadTitle();
+            MessageBox.Show("Thêm thành công");
         }
 
 

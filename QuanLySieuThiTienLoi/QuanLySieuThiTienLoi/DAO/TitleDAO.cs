@@ -43,7 +43,7 @@ namespace QuanLySieuThiTienLoi.DAO
         }
         public void delete(string id)
         {
-            string query = "exec Delete_ChucVu @MaCV , @Ten , @Luong ";
+            string query = "exec Delete_ChucVu @MaCV  ";
             DataProvider.Instance.ExecuteQuery(query, new object[] { id });
         }
     }
